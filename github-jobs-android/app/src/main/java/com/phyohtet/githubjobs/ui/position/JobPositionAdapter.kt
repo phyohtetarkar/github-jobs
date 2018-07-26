@@ -43,6 +43,7 @@ class JobPositionAdapter : RecyclerView.Adapter<JobPositionAdapter.JobPositionVi
 
         fun bind(dto: JobPositionDTO) {
             binding.dto = dto
+            binding.executePendingBindings()
         }
 
     }
