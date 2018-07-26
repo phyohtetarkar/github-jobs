@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.phyohtet.githubjobs.model.api.DateDeserializer
 import java.util.*
 
-data class PositionDTO(
+data class JobPositionDTO(
         val id: String,
         @JsonDeserialize(using = DateDeserializer::class)
         @JsonProperty("created_at")

@@ -4,7 +4,7 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import com.phyohtet.githubjobs.model.DataSource
 import com.phyohtet.githubjobs.model.api.service.GithubJobService
-import com.phyohtet.githubjobs.model.dto.PositionDTO
+import com.phyohtet.githubjobs.model.dto.JobPositionDTO
 import com.phyohtet.githubjobs.model.repo.GithubJobRepo
 import retrofit2.Call
 import retrofit2.Callback
@@ -12,19 +12,19 @@ import retrofit2.Response
 
 class GithubJobRepoImpl(private val service: GithubJobService) : GithubJobRepo {
 
-    override fun findPositions(description: String, location: String, fullTime: Boolean): LiveData<DataSource<List<PositionDTO>>> {
-        val liveData = MutableLiveData<DataSource<List<PositionDTO>>>()
+    override fun findPositions(description: String, location: String, fullTime: Boolean, page: Int): LiveData<DataSource<List<JobPositionDTO>>> {
+        val liveData = MutableLiveData<DataSource<List<JobPositionDTO>>>()
         liveData.value = DataSource.loading()
 
         val call = if (fullTime) {
-            service.findPositions(description, location, fullTime)
+            service.findPositions(description, location, fullTime, page)
         } else {
-            service.findPositions(description, location)
+            service.findPositions(description, location, page)
         }
 
-        call.enqueue(object : Callback<List<PositionDTO>> {
+        call.enqueue(object : Callback<List<JobPositionDTO>> {
 
-            override fun onResponse(call: Call<List<PositionDTO>>?, response: Response<List<PositionDTO>>?) {
+            override fun onResponse(call: Call<List<JobPositionDTO>>?, response: Response<List<JobPositionDTO>>?) {
                 response?.also {
                     if (it.isSuccessful) {
                         liveData.postValue(DataSource.success(it.body()))
@@ -34,7 +34,7 @@ class GithubJobRepoImpl(private val service: GithubJobService) : GithubJobRepo {
                 }
             }
 
-            override fun onFailure(call: Call<List<PositionDTO>>?, t: Throwable?) {
+            override fun onFailure(call: Call<List<JobPositionDTO>>?, t: Throwable?) {
                 liveData.postValue(DataSource.error(t?.message))
             }
 
@@ -43,13 +43,13 @@ class GithubJobRepoImpl(private val service: GithubJobService) : GithubJobRepo {
         return liveData
     }
 
-    override fun getPosition(id: String): LiveData<DataSource<PositionDTO>> {
-        val liveData = MutableLiveData<DataSource<PositionDTO>>()
+    override fun getPosition(id: String): LiveData<DataSource<JobPositionDTO>> {
+        val liveData = MutableLiveData<DataSource<JobPositionDTO>>()
         liveData.value = DataSource.loading()
 
-        service.getPosition(id.plus(".json")).enqueue(object : Callback<PositionDTO> {
+        service.getPosition(id.plus(".json")).enqueue(object : Callback<JobPositionDTO> {
 
-            override fun onResponse(call: Call<PositionDTO>?, response: Response<PositionDTO>?) {
+            override fun onResponse(call: Call<JobPositionDTO>?, response: Response<JobPositionDTO>?) {
                 response?.also {
                     if (it.isSuccessful) {
                         liveData.postValue(DataSource.success(it.body()))
@@ -59,7 +59,7 @@ class GithubJobRepoImpl(private val service: GithubJobService) : GithubJobRepo {
                 }
             }
 
-            override fun onFailure(call: Call<PositionDTO>?, t: Throwable?) {
+            override fun onFailure(call: Call<JobPositionDTO>?, t: Throwable?) {
                 liveData.postValue(DataSource.error(t?.message))
             }
 

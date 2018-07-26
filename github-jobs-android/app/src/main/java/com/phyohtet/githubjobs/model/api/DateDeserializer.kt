@@ -9,7 +9,7 @@ import java.util.*
 
 class DateDeserializer : StdDeserializer<Date>(Date::class.java) {
 
-    private val dateFormat = SimpleDateFormat("", Locale.ENGLISH)
+    private val dateFormat = SimpleDateFormat("c", Locale.ENGLISH)
 
     override fun deserialize(p: JsonParser?, ctxt: DeserializationContext?): Date? {
 
