@@ -35,7 +35,7 @@ class JobPositionAdapter : RecyclerView.Adapter<JobPositionAdapter.JobPositionVi
         list?.also {
             val offset = itemCount
             this.positions.addAll(offset, it)
-            notifyItemRangeChanged(offset, it.size)
+            notifyItemRangeInserted(offset, it.size)
         }
     }
 

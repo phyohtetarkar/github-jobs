@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_git_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:fullBackupContent="true">
+        android:fullBackupContent="true"
+        android:name=".GithubJobApplication">
         <activity
             android:name=".ui.MainActivity"
             android:label="@string/app_name">

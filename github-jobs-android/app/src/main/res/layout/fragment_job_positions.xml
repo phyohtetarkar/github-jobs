@@ -18,6 +18,7 @@
         tools:listitem="@layout/layout_job_position" />
 
     <include
+        android:id="@+id/progress"
         layout="@layout/layout_progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,18 +31,6 @@
         app:layout_constraintEnd_toEndOf="@+id/recyclerView"
         app:layout_constraintStart_toStartOf="@+id/recyclerView"
         app:layout_constraintTop_toTopOf="@+id/recyclerView" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabFilter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/ic_filter_list_white_24dp"
-        app:fabSize="normal"
-        app:backgroundTint="@color/colorPrimary"
-        app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
-        app:layout_constraintEnd_toEndOf="@+id/recyclerView" />
 
 
 </android.support.constraint.ConstraintLayout>

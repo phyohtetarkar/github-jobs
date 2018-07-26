@@ -8,7 +8,7 @@ import com.phyohtet.githubjobs.model.DataSource
 import com.phyohtet.githubjobs.model.dto.JobPositionDTO
 import com.phyohtet.githubjobs.model.repo.impl.RepositoryFactory
 
-class JobPositionViewModel : ViewModel() {
+class JobPositionsViewModel : ViewModel() {
 
     private val repo = RepositoryFactory.githubJobRepo
     private val page = MutableLiveData<Int>()
@@ -18,7 +18,7 @@ class JobPositionViewModel : ViewModel() {
     private var location = ""
     private var fullTime = false
 
-    var loadState: Boolean = false
+    var loadMore: Boolean = false
 
     val positions: LiveData<DataSource<List<JobPositionDTO>>> = Transformations.switchMap(page) {
                 repo.findPositions(description, location, fullTime, it)
@@ -29,13 +29,13 @@ class JobPositionViewModel : ViewModel() {
             }
 
     fun find() {
-        loadState = true
+        loadMore = false
         page.value = 0
     }
 
     fun loadMore() {
-        loadState = false
-        page.value?.inc()
+        loadMore = true
+        page.value = page.value?.let { it + 1 }
     }
 
 }

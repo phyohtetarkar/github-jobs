@@ -11,8 +11,9 @@ public class BindingUtil {
     @BindingAdapter({"image"})
     public static void setImage(ImageView imageView, String url) {
         if (url != null) {
-            Picasso.get().cancelRequest(imageView);
-            Picasso.get().load(url).placeholder(R.drawable.loading).into(imageView);
+            Picasso p = Picasso.get();
+            p.cancelRequest(imageView);
+            p.load(url).placeholder(R.drawable.loading).into(imageView);
         }
     }
 
