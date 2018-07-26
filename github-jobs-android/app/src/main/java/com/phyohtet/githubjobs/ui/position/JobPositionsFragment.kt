@@ -48,7 +48,7 @@ class JobPositionsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel.dataSource.observe(this, Observer {
+        viewModel.positions.observe(this, Observer {
             when (it?.status) {
                 DataSource.Status.LOADING -> {
                     if (viewModel.loadState) {
@@ -68,10 +68,6 @@ class JobPositionsFragment : Fragment() {
 
                 }
             }
-        })
-
-        viewModel.positions.observe(this, Observer {
-
         })
 
         viewModel.find()

@@ -20,11 +20,9 @@ class JobPositionViewModel : ViewModel() {
 
     var loadState: Boolean = false
 
-    val dataSource: LiveData<DataSource<List<JobPositionDTO>>> = Transformations.switchMap(page) {
+    val positions: LiveData<DataSource<List<JobPositionDTO>>> = Transformations.switchMap(page) {
                 repo.findPositions(description, location, fullTime, it)
             }
-
-    val positions = MutableLiveData<List<JobPositionDTO>>()
 
     val position: LiveData<DataSource<JobPositionDTO>> = Transformations.switchMap(positionId) {
                 repo.getPosition(it)
