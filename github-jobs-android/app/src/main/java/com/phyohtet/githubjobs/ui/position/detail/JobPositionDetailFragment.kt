@@ -43,6 +43,7 @@ class JobPositionDetailFragment : Fragment() {
             startActivity(intent)
         }
 
+        tvHowToApply.movementMethod = LinkMovementMethod.getInstance()
         tvDescription.movementMethod = LinkMovementMethod.getInstance()
     }
 
