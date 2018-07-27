@@ -6,7 +6,10 @@
 
     <color name="colorTextPrimary">#212121</color>
     <color name="colorDivider">#BDBDBD</color>
+    <color name="colorDefaultBackground">#f5f5f5</color>
 
     <color name="colorDarkTransparent">#6E000000</color>
     <color name="customEdittextColor">#14000000</color>
+
+    <color name="colorTextLink">#1f3bf2</color>
 </resources>

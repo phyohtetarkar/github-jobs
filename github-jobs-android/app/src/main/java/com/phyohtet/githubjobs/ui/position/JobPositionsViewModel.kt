@@ -12,7 +12,6 @@ class JobPositionsViewModel : ViewModel() {
 
     private val repo = RepositoryFactory.githubJobRepo
     private val page = MutableLiveData<Int>()
-    private val positionId = MutableLiveData<String>()
 
     var description = ""
     var location = ""
@@ -22,10 +21,6 @@ class JobPositionsViewModel : ViewModel() {
 
     val positions: LiveData<DataSource<List<JobPositionDTO>>> = Transformations.switchMap(page) {
                 repo.findPositions(description, location, fullTime, it)
-            }
-
-    val position: LiveData<DataSource<JobPositionDTO>> = Transformations.switchMap(positionId) {
-                repo.getPosition(it)
             }
 
     fun find() {

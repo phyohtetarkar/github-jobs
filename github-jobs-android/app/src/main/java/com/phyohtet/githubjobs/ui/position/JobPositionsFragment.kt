@@ -8,10 +8,11 @@ import android.support.v4.app.Fragment
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.*
 import com.phyohtet.githubjobs.R
 import com.phyohtet.githubjobs.model.DataSource
+import com.phyohtet.githubjobs.ui.custom.RecyclerViewItemTouchListener
+import com.phyohtet.githubjobs.ui.position.detail.JobPositionDetailFragment
 import kotlinx.android.synthetic.main.fragment_job_positions.*
 
 class JobPositionsFragment : Fragment() {
@@ -82,8 +83,6 @@ class JobPositionsFragment : Fragment() {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
-                Log.v(TAG, "dy: $dy")
-
                 if (dy <= 0) {
                     return
                 }
@@ -100,6 +99,24 @@ class JobPositionsFragment : Fragment() {
 
             }
         })
+
+        recyclerView.addOnItemTouchListener(RecyclerViewItemTouchListener(context, object : RecyclerViewItemTouchListener.OnTouchListener {
+            override fun onTouch(view: View, position: Int) {
+                positionAdapter.getItemAt(position)?.also { dto ->
+                    val frag = JobPositionDetailFragment()
+                    val b = Bundle().also {
+                        it.putString("id", dto.id)
+                    }
+                    frag.arguments = b
+
+                    fragmentManager?.beginTransaction()
+                            ?.addToBackStack(null)
+                            ?.replace(R.id.contentMain, frag)
+                            ?.commit()
+                }
+            }
+
+        }))
 
     }
 
@@ -129,9 +146,7 @@ class JobPositionsFragment : Fragment() {
                         viewModel.loadMore = false
                         // remove loading view
                         positionAdapter.remove(positionAdapter.itemCount - 1)
-
                         positionAdapter.appendList(it.data)
-
                     }
 
                 }

@@ -30,6 +30,7 @@
 
     <style name="AppTheme.Dialog" parent="Theme.AppCompat.Light.Dialog">
         <item name="windowNoTitle">false</item>
+        <item name="editTextStyle">@style/AppTheme.EditText</item>
     </style>
 
 </resources>

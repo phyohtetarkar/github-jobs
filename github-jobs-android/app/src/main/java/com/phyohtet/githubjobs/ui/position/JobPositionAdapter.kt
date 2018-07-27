@@ -45,7 +45,7 @@ class JobPositionAdapter : RecyclerView.Adapter<JobPositionAdapter.JobPositionVi
     }
 
     fun appendList(list: List<JobPositionDTO>?) {
-        list?.also {
+        list?.takeIf { it.isNotEmpty() }?.also {
             val offset = itemCount
             this.list.addAll(offset, it)
             notifyItemRangeInserted(offset, it.size)
@@ -61,6 +61,10 @@ class JobPositionAdapter : RecyclerView.Adapter<JobPositionAdapter.JobPositionVi
     fun remove(position: Int) {
         this.list.removeAt(position)
         notifyItemRemoved(position)
+    }
+
+    fun getItemAt(position: Int): JobPositionDTO? {
+        return list[position]
     }
 
     inner class JobPositionViewHolder(view: View) : RecyclerView.ViewHolder(view) {
