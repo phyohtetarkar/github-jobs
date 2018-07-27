@@ -8,4 +8,5 @@
     <color name="colorDivider">#BDBDBD</color>
 
     <color name="colorDarkTransparent">#6E000000</color>
+    <color name="customEdittextColor">#14000000</color>
 </resources>

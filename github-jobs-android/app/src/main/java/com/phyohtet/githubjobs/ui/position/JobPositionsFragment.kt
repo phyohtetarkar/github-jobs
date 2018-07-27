@@ -3,6 +3,7 @@ package com.phyohtet.githubjobs.ui.position
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.app.Fragment
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
@@ -15,14 +16,20 @@ import kotlinx.android.synthetic.main.fragment_job_positions.*
 
 class JobPositionsFragment : Fragment() {
 
-    private val TAG = "JobPositionsFragment"
+    companion object {
+        private const val TAG = "JobPositionsFragment"
+        private const val FILTER_DIALOG_TAG = "JobPositionsFilter"
+        private const val LOAD_MORE_DELAY = 250L
+    }
 
     private lateinit var viewModel: JobPositionsViewModel
     private lateinit var positionAdapter: JobPositionAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(JobPositionsViewModel::class.java)
+        activity?.also {
+            viewModel = ViewModelProviders.of(it).get(JobPositionsViewModel::class.java)
+        }
         positionAdapter = JobPositionAdapter()
 
         setHasOptionsMenu(true)
@@ -36,6 +43,28 @@ class JobPositionsFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
 
         inflater?.inflate(R.menu.menu_filter, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        if (item?.itemId == R.id.action_filter) {
+
+            val ft = fragmentManager?.beginTransaction()
+            val prev = fragmentManager?.findFragmentByTag(FILTER_DIALOG_TAG)
+
+            if (prev != null) {
+                ft?.remove(prev)
+            }
+
+            ft?.addToBackStack(null)
+
+            val frag = JobPositionsFilterFragment()
+            frag.show(ft, FILTER_DIALOG_TAG)
+
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,17 +82,19 @@ class JobPositionsFragment : Fragment() {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
-                if (dy < 0) {
+                Log.v(TAG, "dy: $dy")
+
+                if (dy <= 0) {
                     return
                 }
 
                 val size = positionAdapter.itemCount
                 val last = linearLayoutManager.findLastCompletelyVisibleItemPosition()
-                val threshold = 4
+                val threshold = 2
 
 
                 if (!viewModel.loadMore && size <= (last + threshold)) {
-                    Log.v(TAG, "Load More")
+                    Handler().postDelayed( { positionAdapter.append(null) }, LOAD_MORE_DELAY)
                     viewModel.loadMore()
                 }
 
@@ -88,10 +119,19 @@ class JobPositionsFragment : Fragment() {
                 DataSource.Status.SUCCESS -> {
                     progress.visibility = View.GONE
                     if (!viewModel.loadMore) {
-                        positionAdapter.submitList(it.data?.toMutableList())
+                        positionAdapter.submitList(it.data)
+                        if (positionAdapter.itemCount > 0) {
+                            tvNoPosition.visibility = View.GONE
+                        } else {
+                            tvNoPosition.visibility = View.VISIBLE
+                        }
                     } else {
                         viewModel.loadMore = false
-                        positionAdapter.appendList(it.data?.toMutableList())
+                        // remove loading view
+                        positionAdapter.remove(positionAdapter.itemCount - 1)
+
+                        positionAdapter.appendList(it.data)
+
                     }
 
                 }

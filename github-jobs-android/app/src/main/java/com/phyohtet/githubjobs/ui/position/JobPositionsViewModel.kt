@@ -14,9 +14,9 @@ class JobPositionsViewModel : ViewModel() {
     private val page = MutableLiveData<Int>()
     private val positionId = MutableLiveData<String>()
 
-    private var description = ""
-    private var location = ""
-    private var fullTime = false
+    var description = ""
+    var location = ""
+    var fullTime = false
 
     var loadMore: Boolean = false
 
