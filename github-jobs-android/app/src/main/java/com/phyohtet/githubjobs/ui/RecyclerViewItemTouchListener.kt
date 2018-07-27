@@ -1,4 +1,4 @@
-package com.phyohtet.githubjobs.ui.custom
+package com.phyohtet.githubjobs.ui
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView

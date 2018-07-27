@@ -11,7 +11,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.*
 import com.phyohtet.githubjobs.R
 import com.phyohtet.githubjobs.model.DataSource
-import com.phyohtet.githubjobs.ui.custom.RecyclerViewItemTouchListener
+import com.phyohtet.githubjobs.ui.RecyclerViewItemTouchListener
 import com.phyohtet.githubjobs.ui.position.detail.JobPositionDetailFragment
 import kotlinx.android.synthetic.main.fragment_job_positions.*
 
