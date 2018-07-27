@@ -15,4 +15,5 @@
     <string name="title_full_time_only">Full Time Only</string>
     <string name="title_filter_job_dialog">Filter Job Positions</string>
     <string name="no_position_found">No position found</string>
+    <string name="title_how_to_apply">How To Apply</string>
 </resources>

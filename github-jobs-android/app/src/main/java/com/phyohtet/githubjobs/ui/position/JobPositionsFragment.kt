@@ -34,6 +34,39 @@ class JobPositionsFragment : Fragment() {
         positionAdapter = JobPositionAdapter()
 
         setHasOptionsMenu(true)
+
+        viewModel.positions.observe(this, Observer {
+            when (it?.status) {
+                DataSource.Status.LOADING -> {
+                    if (!viewModel.loadMore) {
+                        progress.visibility = View.VISIBLE
+                    }
+                }
+                DataSource.Status.ERROR -> {
+                    progress.visibility = View.GONE
+                }
+                DataSource.Status.SUCCESS -> {
+                    progress.visibility = View.GONE
+                    if (!viewModel.loadMore) {
+                        positionAdapter.submitList(it.data)
+                        recyclerView.smoothScrollToPosition(0)
+                        if (positionAdapter.itemCount > 0) {
+                            tvNoPosition.visibility = View.GONE
+                        } else {
+                            tvNoPosition.visibility = View.VISIBLE
+                        }
+                    } else {
+                        viewModel.loadMore = false
+                        // remove loading view
+                        positionAdapter.remove(positionAdapter.itemCount - 1)
+                        positionAdapter.appendList(it.data)
+                    }
+
+                }
+            }
+        })
+
+        viewModel.find()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -117,43 +150,6 @@ class JobPositionsFragment : Fragment() {
             }
 
         }))
-
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        viewModel.positions.observe(this, Observer {
-            when (it?.status) {
-                DataSource.Status.LOADING -> {
-                    if (!viewModel.loadMore) {
-                        progress.visibility = View.VISIBLE
-                    }
-                }
-                DataSource.Status.ERROR -> {
-                    progress.visibility = View.GONE
-                }
-                DataSource.Status.SUCCESS -> {
-                    progress.visibility = View.GONE
-                    if (!viewModel.loadMore) {
-                        positionAdapter.submitList(it.data)
-                        if (positionAdapter.itemCount > 0) {
-                            tvNoPosition.visibility = View.GONE
-                        } else {
-                            tvNoPosition.visibility = View.VISIBLE
-                        }
-                    } else {
-                        viewModel.loadMore = false
-                        // remove loading view
-                        positionAdapter.remove(positionAdapter.itemCount - 1)
-                        positionAdapter.appendList(it.data)
-                    }
-
-                }
-            }
-        })
-
-        viewModel.find()
 
     }
 

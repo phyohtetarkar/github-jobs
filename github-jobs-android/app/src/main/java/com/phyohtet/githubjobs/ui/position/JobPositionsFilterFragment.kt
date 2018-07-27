@@ -6,7 +6,7 @@ import android.support.v4.app.DialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.phyohtet.githubjobs.R
+import android.view.Window
 import com.phyohtet.githubjobs.databinding.JobPositionsFilterBinding
 import kotlinx.android.synthetic.main.fragment_filter_job_positions.*
 
@@ -23,7 +23,7 @@ class JobPositionsFilterFragment : DialogFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        dialog.setTitle(getString(R.string.title_filter_job_dialog))
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
 
         val binding = JobPositionsFilterBinding.inflate(inflater, container, false)
         binding.setLifecycleOwner(this)
