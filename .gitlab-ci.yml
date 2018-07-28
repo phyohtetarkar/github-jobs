@@ -34,3 +34,4 @@ build:
     - app/build/outputs/
   tags:
     - docker
+  when: manual
