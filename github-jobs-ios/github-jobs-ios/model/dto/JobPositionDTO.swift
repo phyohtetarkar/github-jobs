@@ -40,7 +40,7 @@ struct JobPositionDTO: Decodable {
         id = try container.decode(String.self, forKey: .id)
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "E MMM dd hh:mm:ss Z yyyy"
+        dateFormatter.dateFormat = "E MMM dd HH:mm:ss zzz yyyy"
         let created = try container.decode(String.self, forKey: .createdAt)
         createdAt = dateFormatter.date(from: created)
         
@@ -50,8 +50,8 @@ struct JobPositionDTO: Decodable {
         description = try container.decode(String.self, forKey: .description)
         howToApply = try container.decode(String.self, forKey: .howToApply)
         company = try container.decode(String.self, forKey: .company)
-        companyUrl = try container.decode(String.self, forKey: .companyUrl)
-        companyLogo = try container.decode(String.self, forKey: .companyLogo)
+        companyUrl = try container.decodeIfPresent(String.self, forKey: .companyUrl)
+        companyLogo = try container.decodeIfPresent(String.self, forKey: .companyLogo)
         url = try container.decode(String.self, forKey: .url)
     }
     
