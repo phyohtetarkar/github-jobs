@@ -86,6 +86,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5C16FE07210F49F2006BEDD3 /* ui */ = {
+			isa = PBXGroup;
+			children = (
+				AA5B972F210EA86F00087388 /* JobPositionsViewController.swift */,
+				AA5B9731210EADC500087388 /* JobPositionViewCell.swift */,
+			);
+			path = ui;
+			sourceTree = "<group>";
+		};
 		5C5DC9A9210DF2ED00F426BB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -119,6 +128,7 @@
 		5C9F99D2210D767A00D46EE8 /* github-jobs-ios */ = {
 			isa = PBXGroup;
 			children = (
+				5C16FE07210F49F2006BEDD3 /* ui */,
 				5C9F9A01210D7ACA00D46EE8 /* model */,
 				5C9F99D3210D767A00D46EE8 /* AppDelegate.swift */,
 				5C9F99D7210D767A00D46EE8 /* Main.storyboard */,
@@ -150,7 +160,6 @@
 		5C9F9A01210D7ACA00D46EE8 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				AA5B972C210EA68F00087388 /* ui */,
 				5C9F9A04210D7AED00D46EE8 /* dto */,
 				5C9F9A02210D7ADA00D46EE8 /* api */,
 			);
@@ -171,15 +180,6 @@
 				5C9F9A05210D7B0E00D46EE8 /* JobPositionDTO.swift */,
 			);
 			path = dto;
-			sourceTree = "<group>";
-		};
-		AA5B972C210EA68F00087388 /* ui */ = {
-			isa = PBXGroup;
-			children = (
-				AA5B972F210EA86F00087388 /* JobPositionsViewController.swift */,
-				AA5B9731210EADC500087388 /* JobPositionViewCell.swift */,
-			);
-			path = ui;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -522,7 +522,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.phyohtet.githubjobs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -543,7 +543,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.phyohtet.githubjobs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

@@ -12,7 +12,9 @@ import AlamofireImage
 
 class JobPositionsViewController: UITableViewController {
     
-    var jobPositions = [JobPositionDTO]()
+    private var jobPositions = [JobPositionDTO]()
+    private var loading = false
+    private var page = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,25 +25,13 @@ class JobPositionsViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
-        refreshControl?.beginRefreshing()
+        self.refreshControl?.beginRefreshing()
         find()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    override var refreshControl: UIRefreshControl? {
-        get {
-            let rc = UIRefreshControl()
-        
-            return rc
-        }
-        
-        set {
-            
-        }
     }
 
     // MARK: - Table view data source
@@ -53,7 +43,6 @@ class JobPositionsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return jobPositions.count
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CellJobPosition", for: indexPath) as? JobPositionViewCell else {
@@ -61,49 +50,14 @@ class JobPositionsViewController: UITableViewController {
         }
         
         let dto = jobPositions[indexPath.row]
-        cell.jobTypeLabel.text = dto.title
-        cell.createdTimeLabel.text = ""
+        cell.jobTitleLabel.text = dto.title
+        cell.createdTimeLabel.text = dto.createdAt?.timeAgoDisplay()
         cell.companyNameLabel.text = dto.company
         cell.jobTypeLabel.text = dto.type
+        cell.companyImageView.load(imageUrl: dto.companyLogo)
 
         return cell
     }
-    
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
 
     /*
     // MARK: - Navigation
@@ -115,31 +69,65 @@ class JobPositionsViewController: UITableViewController {
     }
     */
     
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let offset = jobPositions.count - 5
+        
+        if !loading && indexPath.row == offset {
+            loadMore()
+        }
+        
+    }
+    
     private func find() {
+        self.page = 0
         GithubJobApi.findJobPositions(description: nil, location: nil) { [weak self] resp in
             switch resp {
             case .success(let data):
                 self?.jobPositions = data
                 self?.tableView.reloadData()
-                self?.refreshControl?.endRefreshing()
             case .error(let error):
                 print(error)
             }
+            
+            self?.refreshControl?.endRefreshing()
+        }
+    }
+    
+    private func loadMore() {
+        self.loading = true
+        self.page += 1
+        GithubJobApi.findJobPositions(description: nil, location: nil, page: page) { [weak self] resp in
+            switch resp {
+            case .success(let data):
+                self?.jobPositions.append(contentsOf: data)
+                self?.tableView.reloadData()
+            case .error(let error):
+                print(error)
+                self?.page -= 1
+            }
+            
+            self?.loading = false
         }
     }
 }
 
 extension UIImageView {
     
-    func load(url: String) {
+    func load(imageUrl: String?) {
         
-        Alamofire.request(url).responseImage { [weak self] resp in
-            if let image = resp.result.value {
-                self?.image = image
-            } else {
-                
+        if let url = imageUrl {
+            self.image = UIImage(named: "loading")
+            Alamofire.request(url).responseImage { [weak self] resp in
+                if let image = resp.result.value {
+                    self?.image = image
+                } else {
+                    self?.image = UIImage(named: "placeholder")
+                }
             }
+        } else {
+            self.image = UIImage(named: "placeholder")
         }
+        
     }
     
 }
