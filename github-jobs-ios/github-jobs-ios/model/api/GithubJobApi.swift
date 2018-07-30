@@ -11,9 +11,16 @@ import Alamofire
 
 class GithubJobApi {
     
-    static let BASE_URL = "https://jobs.github.com/"
+    private static let BASE_URL = "https://jobs.github.com"
     
-    static func findJobPositions(description: String?, location: String?, fullTime: Bool = false, page: Int = 0, success: @escaping ([JobPositionDTO]) -> Void, failure: @escaping (String) -> Void) {
+    enum ApiResponse<T> {
+        case success(T)
+        case error(String)
+    }
+    
+    static func findJobPositions(description: String?, location: String?, fullTime: Bool = false, page: Int = 0, completion: @escaping (ApiResponse<[JobPositionDTO]>) -> Void) {
+        
+        let url = "\(BASE_URL)/positions.json"
         
         var params: [String: Any] = ["description": description ?? "", "location": location ?? ""]
         
@@ -23,41 +30,43 @@ class GithubJobApi {
         
         params["page"] = page
         
-        Alamofire.request(BASE_URL + "positions.json", parameters: params).responseString { resp in
+        Alamofire.request(url, parameters: params).responseString { resp in
             
             switch resp.result {
             case .success(let value):
                 do {
                     let json = value as String
                     let result = try JSONDecoder().decode([JobPositionDTO].self, from: json.data(using: .utf8)!)
-                    success(result)
+                    completion(ApiResponse.success(result))
                 } catch let decodeError {
                     print("Error decoding job positions \(decodeError)")
-                    failure("Error loading positions")
+                    completion(ApiResponse.error("Error loading positions"))
                 }
             case .failure(let error):
-                failure(error.localizedDescription)
+                completion(ApiResponse.error(error.localizedDescription))
             }
             
         }
     }
     
-    static func getJobPosition(id: String, success: @escaping (JobPositionDTO) -> Void, failure: @escaping (String) -> Void) {
+    static func getJobPosition(id: String, completion: @escaping (ApiResponse<JobPositionDTO>) -> Void) {
         
-        Alamofire.request(BASE_URL + "positions" + "/" + id + ".json").responseString { resp in
+        let url = "\(BASE_URL)/positions/\(id).json"
+        
+        Alamofire.request(url).responseString { resp in
             
             switch resp.result {
             case .success(let value):
                 do {
                     let json = value as String
                     let result = try JSONDecoder().decode(JobPositionDTO.self, from: json.data(using: .utf8)!)
-                    success(result)
+                    completion(ApiResponse.success(result))
                 } catch let decodeError {
                     print("Error decoding job positions \(decodeError)")
-                    failure("Error loading position")
+                    completion(ApiResponse.error("Error loading position"))
                 }
             case .failure(let error):
-                failure(error.localizedDescription)
+                completion(ApiResponse.error(error.localizedDescription))
             }
             
         }

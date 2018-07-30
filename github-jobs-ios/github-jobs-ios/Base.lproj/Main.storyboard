@@ -1,28 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ELy-fG-2NZ">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14109"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Job Positions View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Github Jobs-->
+        <scene sceneID="ewq-ZF-elL">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="JobPositionsViewController" customModule="github_jobs_ios" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                <tableViewController id="ELy-fG-2NZ" customClass="JobPositionsViewController" customModule="github_jobs_ios" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Kl3-d5-FHP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CellJobPosition" rowHeight="100" id="T2t-44-cIj" customClass="JobPositionViewCell" customModule="github_jobs_ios" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="100"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="T2t-44-cIj" id="cph-1m-0Zt">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="99.666666666666671"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Jag-sd-37H">
+                                            <rect key="frame" x="16" y="16" width="67.666666666666671" height="67.666666666666671"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="Jag-sd-37H" secondAttribute="height" multiplier="1:1" id="xLX-oM-lMQ"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cej-ot-ux4">
+                                            <rect key="frame" x="99.666666666666657" y="15.999999999999998" width="259.33333333333337" height="19.333333333333329"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 days ago" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5kC-Ja-qME">
+                                            <rect key="frame" x="99" y="35.333333333333336" width="260" height="14.333333333333336"/>
+                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Microsoft" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wDe-fy-hdF">
+                                            <rect key="frame" x="99.666666666666686" y="64.333333333333329" width="175" height="19.333333333333329"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" text="Full Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mmX-M5-TPa">
+                                            <rect key="frame" x="290.66666666666669" y="64.333333333333329" width="68.333333333333314" height="19.333333333333329"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                            <color key="textColor" red="0.0" green="0.59999999999999998" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="5kC-Ja-qME" firstAttribute="top" secondItem="Cej-ot-ux4" secondAttribute="bottom" id="5kS-BS-8ts"/>
+                                        <constraint firstItem="wDe-fy-hdF" firstAttribute="bottom" secondItem="Jag-sd-37H" secondAttribute="bottom" id="8jV-rf-u2N"/>
+                                        <constraint firstItem="Jag-sd-37H" firstAttribute="top" secondItem="cph-1m-0Zt" secondAttribute="top" constant="16" id="EWf-kd-LMe"/>
+                                        <constraint firstItem="mmX-M5-TPa" firstAttribute="baseline" secondItem="wDe-fy-hdF" secondAttribute="baseline" id="IPO-LZ-DeR"/>
+                                        <constraint firstItem="wDe-fy-hdF" firstAttribute="leading" secondItem="Jag-sd-37H" secondAttribute="trailing" constant="16" id="J5U-c2-4p4"/>
+                                        <constraint firstItem="mmX-M5-TPa" firstAttribute="leading" secondItem="wDe-fy-hdF" secondAttribute="trailing" constant="16" id="LAk-KY-Vuw"/>
+                                        <constraint firstAttribute="trailing" secondItem="mmX-M5-TPa" secondAttribute="trailing" constant="16" id="Ml8-TZ-fDp"/>
+                                        <constraint firstItem="Cej-ot-ux4" firstAttribute="leading" secondItem="Jag-sd-37H" secondAttribute="trailing" constant="16" id="NjQ-3f-RjF"/>
+                                        <constraint firstItem="5kC-Ja-qME" firstAttribute="leading" secondItem="Cej-ot-ux4" secondAttribute="leading" id="OXI-uk-Ku5"/>
+                                        <constraint firstItem="Jag-sd-37H" firstAttribute="leading" secondItem="cph-1m-0Zt" secondAttribute="leading" constant="16" id="W5f-Fx-9gr"/>
+                                        <constraint firstItem="5kC-Ja-qME" firstAttribute="trailing" secondItem="Cej-ot-ux4" secondAttribute="trailing" id="eHt-pu-jhX"/>
+                                        <constraint firstAttribute="bottom" secondItem="Jag-sd-37H" secondAttribute="bottom" constant="16" id="eXC-zk-h0M"/>
+                                        <constraint firstItem="Cej-ot-ux4" firstAttribute="top" secondItem="Jag-sd-37H" secondAttribute="top" id="hEa-Iy-cZc"/>
+                                        <constraint firstAttribute="trailing" secondItem="Cej-ot-ux4" secondAttribute="trailing" constant="16" id="z92-DN-jPt"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="companyImageView" destination="Jag-sd-37H" id="o5v-oE-sn4"/>
+                                    <outlet property="companyNameLabel" destination="wDe-fy-hdF" id="npm-nr-cQb"/>
+                                    <outlet property="createdTimeLabel" destination="5kC-Ja-qME" id="gHq-vf-ynB"/>
+                                    <outlet property="jobTitleLabel" destination="Cej-ot-ux4" id="dVj-kO-MXk"/>
+                                    <outlet property="jobTypeLabel" destination="mmX-M5-TPa" id="UcF-XR-USg"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="ELy-fG-2NZ" id="kB0-3h-Vqz"/>
+                            <outlet property="delegate" destination="ELy-fG-2NZ" id="dbI-6c-sgn"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Github Jobs" id="nZz-1N-vtN">
+                        <barButtonItem key="rightBarButtonItem" title="Filter" id="e2X-lo-koo"/>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="umJ-UP-Aow" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="1149.5999999999999" y="23.645320197044335"/>
         </scene>
     </scenes>
 </document>

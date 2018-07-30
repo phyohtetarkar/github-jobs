@@ -11,13 +11,14 @@
 		5C5DC9AC210DF2ED00F426BB /* AlamofireImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C5DC9AA210DF2ED00F426BB /* AlamofireImage.framework */; };
 		5C5DC9AD210DF2ED00F426BB /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C5DC9AB210DF2ED00F426BB /* Alamofire.framework */; };
 		5C9F99D4210D767A00D46EE8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9F99D3210D767A00D46EE8 /* AppDelegate.swift */; };
-		5C9F99D6210D767A00D46EE8 /* JobPositionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9F99D5210D767A00D46EE8 /* JobPositionsViewController.swift */; };
 		5C9F99D9210D767A00D46EE8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C9F99D7210D767A00D46EE8 /* Main.storyboard */; };
 		5C9F99DB210D767A00D46EE8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C9F99DA210D767A00D46EE8 /* Assets.xcassets */; };
 		5C9F99DE210D767A00D46EE8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C9F99DC210D767A00D46EE8 /* LaunchScreen.storyboard */; };
 		5C9F99E9210D767B00D46EE8 /* GithubJobsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9F99E8210D767B00D46EE8 /* GithubJobsTests.swift */; };
 		5C9F99F4210D767B00D46EE8 /* GithubJobsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9F99F3210D767B00D46EE8 /* GithubJobsUITests.swift */; };
 		5C9F9A06210D7B0E00D46EE8 /* JobPositionDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9F9A05210D7B0E00D46EE8 /* JobPositionDTO.swift */; };
+		AA5B9730210EA86F00087388 /* JobPositionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5B972F210EA86F00087388 /* JobPositionsViewController.swift */; };
+		AA5B9732210EADC500087388 /* JobPositionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5B9731210EADC500087388 /* JobPositionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,7 +44,6 @@
 		5C5DC9AB210DF2ED00F426BB /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		5C9F99D0210D767A00D46EE8 /* github-jobs-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "github-jobs-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C9F99D3210D767A00D46EE8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		5C9F99D5210D767A00D46EE8 /* JobPositionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobPositionsViewController.swift; sourceTree = "<group>"; };
 		5C9F99D8210D767A00D46EE8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5C9F99DA210D767A00D46EE8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5C9F99DD210D767A00D46EE8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -55,6 +55,8 @@
 		5C9F99F3210D767B00D46EE8 /* GithubJobsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubJobsUITests.swift; sourceTree = "<group>"; };
 		5C9F99F5210D767B00D46EE8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C9F9A05210D7B0E00D46EE8 /* JobPositionDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobPositionDTO.swift; sourceTree = "<group>"; };
+		AA5B972F210EA86F00087388 /* JobPositionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobPositionsViewController.swift; sourceTree = "<group>"; };
+		AA5B9731210EADC500087388 /* JobPositionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobPositionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,7 +121,6 @@
 			children = (
 				5C9F9A01210D7ACA00D46EE8 /* model */,
 				5C9F99D3210D767A00D46EE8 /* AppDelegate.swift */,
-				5C9F99D5210D767A00D46EE8 /* JobPositionsViewController.swift */,
 				5C9F99D7210D767A00D46EE8 /* Main.storyboard */,
 				5C9F99DA210D767A00D46EE8 /* Assets.xcassets */,
 				5C9F99DC210D767A00D46EE8 /* LaunchScreen.storyboard */,
@@ -149,6 +150,7 @@
 		5C9F9A01210D7ACA00D46EE8 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				AA5B972C210EA68F00087388 /* ui */,
 				5C9F9A04210D7AED00D46EE8 /* dto */,
 				5C9F9A02210D7ADA00D46EE8 /* api */,
 			);
@@ -169,6 +171,15 @@
 				5C9F9A05210D7B0E00D46EE8 /* JobPositionDTO.swift */,
 			);
 			path = dto;
+			sourceTree = "<group>";
+		};
+		AA5B972C210EA68F00087388 /* ui */ = {
+			isa = PBXGroup;
+			children = (
+				AA5B972F210EA86F00087388 /* JobPositionsViewController.swift */,
+				AA5B9731210EADC500087388 /* JobPositionViewCell.swift */,
+			);
+			path = ui;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -321,9 +332,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5C9F99D6210D767A00D46EE8 /* JobPositionsViewController.swift in Sources */,
 				5C5DC9A8210DEFA000F426BB /* GithubJobApi.swift in Sources */,
 				5C9F9A06210D7B0E00D46EE8 /* JobPositionDTO.swift in Sources */,
+				AA5B9732210EADC500087388 /* JobPositionViewCell.swift in Sources */,
+				AA5B9730210EA86F00087388 /* JobPositionsViewController.swift in Sources */,
 				5C9F99D4210D767A00D46EE8 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
