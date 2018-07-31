@@ -59,15 +59,27 @@ class JobPositionsViewController: UITableViewController {
         return cell
     }
 
-    /*
+   
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        guard let jobPositionDetailViewController = segue.destination as? JobPositionDetailViewController else {
+            return
+        }
+        
+        guard let jobPositionViewCell = sender as? JobPositionViewCell else {
+            return
+        }
+        
+        guard let indexPath = tableView.indexPath(for: jobPositionViewCell) else {
+            return
+        }
+        
+        let dto = jobPositions[indexPath.row]
+        jobPositionDetailViewController.jobPosition = dto
+        
     }
-    */
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let offset = jobPositions.count - 5

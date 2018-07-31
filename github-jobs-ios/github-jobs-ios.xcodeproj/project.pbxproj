@@ -17,6 +17,8 @@
 		5C9F99E9210D767B00D46EE8 /* GithubJobsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9F99E8210D767B00D46EE8 /* GithubJobsTests.swift */; };
 		5C9F99F4210D767B00D46EE8 /* GithubJobsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9F99F3210D767B00D46EE8 /* GithubJobsUITests.swift */; };
 		5C9F9A06210D7B0E00D46EE8 /* JobPositionDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9F9A05210D7B0E00D46EE8 /* JobPositionDTO.swift */; };
+		AA0F7A93210FF51C00A88E21 /* UICardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0F7A92210FF51C00A88E21 /* UICardView.swift */; };
+		AA0F7A9521100F2F00A88E21 /* JobPositionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0F7A9421100F2F00A88E21 /* JobPositionDetailViewController.swift */; };
 		AA5B9730210EA86F00087388 /* JobPositionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5B972F210EA86F00087388 /* JobPositionsViewController.swift */; };
 		AA5B9732210EADC500087388 /* JobPositionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5B9731210EADC500087388 /* JobPositionViewCell.swift */; };
 /* End PBXBuildFile section */
@@ -55,6 +57,8 @@
 		5C9F99F3210D767B00D46EE8 /* GithubJobsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubJobsUITests.swift; sourceTree = "<group>"; };
 		5C9F99F5210D767B00D46EE8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C9F9A05210D7B0E00D46EE8 /* JobPositionDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobPositionDTO.swift; sourceTree = "<group>"; };
+		AA0F7A92210FF51C00A88E21 /* UICardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICardView.swift; sourceTree = "<group>"; };
+		AA0F7A9421100F2F00A88E21 /* JobPositionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobPositionDetailViewController.swift; sourceTree = "<group>"; };
 		AA5B972F210EA86F00087388 /* JobPositionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobPositionsViewController.swift; sourceTree = "<group>"; };
 		AA5B9731210EADC500087388 /* JobPositionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobPositionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -89,8 +93,10 @@
 		5C16FE07210F49F2006BEDD3 /* ui */ = {
 			isa = PBXGroup;
 			children = (
+				AA0F7A91210FF4F200A88E21 /* custom */,
 				AA5B972F210EA86F00087388 /* JobPositionsViewController.swift */,
 				AA5B9731210EADC500087388 /* JobPositionViewCell.swift */,
+				AA0F7A9421100F2F00A88E21 /* JobPositionDetailViewController.swift */,
 			);
 			path = ui;
 			sourceTree = "<group>";
@@ -180,6 +186,14 @@
 				5C9F9A05210D7B0E00D46EE8 /* JobPositionDTO.swift */,
 			);
 			path = dto;
+			sourceTree = "<group>";
+		};
+		AA0F7A91210FF4F200A88E21 /* custom */ = {
+			isa = PBXGroup;
+			children = (
+				AA0F7A92210FF51C00A88E21 /* UICardView.swift */,
+			);
+			path = custom;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -332,10 +346,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA0F7A93210FF51C00A88E21 /* UICardView.swift in Sources */,
 				5C5DC9A8210DEFA000F426BB /* GithubJobApi.swift in Sources */,
 				5C9F9A06210D7B0E00D46EE8 /* JobPositionDTO.swift in Sources */,
 				AA5B9732210EADC500087388 /* JobPositionViewCell.swift in Sources */,
 				AA5B9730210EA86F00087388 /* JobPositionsViewController.swift in Sources */,
+				AA0F7A9521100F2F00A88E21 /* JobPositionDetailViewController.swift in Sources */,
 				5C9F99D4210D767A00D46EE8 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -509,7 +525,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -519,8 +537,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.phyohtet.githubjobs;
+				PRODUCT_BUNDLE_IDENTIFIER = com.phyohtet.githubjob;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -530,7 +549,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -540,8 +561,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.phyohtet.githubjobs;
+				PRODUCT_BUNDLE_IDENTIFIER = com.phyohtet.githubjob;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
