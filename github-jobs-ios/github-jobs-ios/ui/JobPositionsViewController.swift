@@ -98,7 +98,7 @@ class JobPositionsViewController: UITableViewController {
                 self?.jobPositions = data
                 self?.tableView.reloadData()
             case .error(let error):
-                print(error)
+                self?.showAlert(msg: error)
             }
             
             self?.refreshControl?.endRefreshing()
@@ -114,12 +114,19 @@ class JobPositionsViewController: UITableViewController {
                 self?.jobPositions.append(contentsOf: data)
                 self?.tableView.reloadData()
             case .error(let error):
-                print(error)
                 self?.page -= 1
+                self?.showAlert(msg: error)
             }
             
             self?.loading = false
         }
+    }
+    
+    private func showAlert(msg: String) {
+        let alert = UIAlertController(title: "Error", message: msg, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        
+        present(alert, animated: true, completion: nil)
     }
 }
 
