@@ -21,6 +21,7 @@
 		AA0F7A9521100F2F00A88E21 /* JobPositionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0F7A9421100F2F00A88E21 /* JobPositionDetailViewController.swift */; };
 		AA5B9730210EA86F00087388 /* JobPositionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5B972F210EA86F00087388 /* JobPositionsViewController.swift */; };
 		AA5B9732210EADC500087388 /* JobPositionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5B9731210EADC500087388 /* JobPositionViewCell.swift */; };
+		AAE20908211148F00075754F /* JobPositionsFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE20907211148F00075754F /* JobPositionsFilterViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		AA0F7A9421100F2F00A88E21 /* JobPositionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobPositionDetailViewController.swift; sourceTree = "<group>"; };
 		AA5B972F210EA86F00087388 /* JobPositionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobPositionsViewController.swift; sourceTree = "<group>"; };
 		AA5B9731210EADC500087388 /* JobPositionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobPositionViewCell.swift; sourceTree = "<group>"; };
+		AAE20907211148F00075754F /* JobPositionsFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobPositionsFilterViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 				AA5B972F210EA86F00087388 /* JobPositionsViewController.swift */,
 				AA5B9731210EADC500087388 /* JobPositionViewCell.swift */,
 				AA0F7A9421100F2F00A88E21 /* JobPositionDetailViewController.swift */,
+				AAE20907211148F00075754F /* JobPositionsFilterViewController.swift */,
 			);
 			path = ui;
 			sourceTree = "<group>";
@@ -347,6 +350,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA0F7A93210FF51C00A88E21 /* UICardView.swift in Sources */,
+				AAE20908211148F00075754F /* JobPositionsFilterViewController.swift in Sources */,
 				5C5DC9A8210DEFA000F426BB /* GithubJobApi.swift in Sources */,
 				5C9F9A06210D7B0E00D46EE8 /* JobPositionDTO.swift in Sources */,
 				AA5B9732210EADC500087388 /* JobPositionViewCell.swift in Sources */,

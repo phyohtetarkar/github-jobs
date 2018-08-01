@@ -2,7 +2,7 @@
 //  JobPositionsViewController.swift
 //  github-jobs-ios
 //
-//  Created by OP-Macmini3 on 7/30/18.
+//  Created by Phyo Htet Arkar on 7/30/18.
 //  Copyright © 2018 Phyo Htet Arkar. All rights reserved.
 //
 
@@ -15,6 +15,10 @@ class JobPositionsViewController: UITableViewController {
     private var jobPositions = [JobPositionDTO]()
     private var loading = false
     private var page = 0
+    
+    private var desc: String? = nil
+    private var location: String? = nil
+    private var fulltime = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +29,8 @@ class JobPositionsViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
-        self.refreshControl?.beginRefreshing()
+        self.refreshControl?.addTarget(self, action: #selector(find), for: UIControlEvents.valueChanged)
+        
         find()
     }
 
@@ -58,41 +63,69 @@ class JobPositionsViewController: UITableViewController {
 
         return cell
     }
-
-   
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let jobPositionDetailViewController = segue.destination as? JobPositionDetailViewController else {
-            return
-        }
-        
-        guard let jobPositionViewCell = sender as? JobPositionViewCell else {
-            return
-        }
-        
-        guard let indexPath = tableView.indexPath(for: jobPositionViewCell) else {
-            return
-        }
-        
-        let dto = jobPositions[indexPath.row]
-        jobPositionDetailViewController.jobPosition = dto
-        
-    }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let offset = jobPositions.count - 5
+        let offset = jobPositions.count - 1
         
         if !loading && indexPath.row == offset {
             loadMore()
         }
         
     }
+   
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        switch segue.identifier {
+        case "detail":
+            guard let jobPositionDetailViewController = segue.destination as? JobPositionDetailViewController else {
+                return
+            }
+            
+            guard let jobPositionViewCell = sender as? JobPositionViewCell else {
+                return
+            }
+            
+            guard let indexPath = tableView.indexPath(for: jobPositionViewCell) else {
+                return
+            }
+            
+            let dto = jobPositions[indexPath.row]
+            jobPositionDetailViewController.jobPosition = dto
+        case "filter":
+            guard let navigationViewController = segue.destination as? UINavigationController, let jobPositionFilterViewController = navigationViewController.topViewController as? JobPositionsFilterViewController else {
+                return
+            }
+            print("desc: \(desc ?? ""), location: \(location ?? ""), fulltime: \(fulltime)")
+            jobPositionFilterViewController.desc = desc
+            jobPositionFilterViewController.location = location
+            jobPositionFilterViewController.fulltime = fulltime
+        default:
+            return
+        }
+        
+    }
     
-    private func find() {
+    @IBAction func unwindFormFilter(_ sender: UIStoryboardSegue) {
+        guard let vc = sender.source as? JobPositionsFilterViewController else {
+            return
+        }
+        
+        desc = vc.descriptionTextField.text
+        location = vc.locationTextField.text
+        fulltime = vc.fullTimeSwitch.isOn
+        
+        find()
+    }
+    
+    @objc private func find() {
+        self.refreshControl?.beginRefreshing()
         self.page = 0
-        GithubJobApi.findJobPositions(description: nil, location: nil) { [weak self] resp in
+        GithubJobApi.cancelAllRequests()
+        GithubJobApi.findJobPositions(description: desc, location: location, fullTime: fulltime) { [weak self] resp in
             switch resp {
             case .success(let data):
                 self?.jobPositions = data
@@ -108,11 +141,16 @@ class JobPositionsViewController: UITableViewController {
     private func loadMore() {
         self.loading = true
         self.page += 1
-        GithubJobApi.findJobPositions(description: nil, location: nil, page: page) { [weak self] resp in
+        GithubJobApi.findJobPositions(description: desc, location: location, fullTime: fulltime, page: page) { [weak self] resp in
             switch resp {
             case .success(let data):
-                self?.jobPositions.append(contentsOf: data)
-                self?.tableView.reloadData()
+                if data.count > 0, let offset = self?.jobPositions.count {
+                    let indexPaths = (0..<data.count).map { IndexPath(row: $0 + offset, section: 0) }
+                    self?.jobPositions.append(contentsOf: data)
+                    self?.tableView.beginUpdates()
+                    self?.tableView.insertRows(at: indexPaths, with: .bottom)
+                    self?.tableView.endUpdates()
+                }
             case .error(let error):
                 self?.page -= 1
                 self?.showAlert(msg: error)
@@ -137,9 +175,11 @@ extension UIImageView {
         if let url = imageUrl {
             self.image = UIImage(named: "loading")
             Alamofire.request(url).responseImage { [weak self] resp in
-                if let image = resp.result.value {
-                    self?.image = image
-                } else {
+                switch resp.result {
+                case .success(let value):
+                    self?.image = value
+                case .failure(let error):
+                    print(error.localizedDescription)
                     self?.image = UIImage(named: "placeholder")
                 }
             }

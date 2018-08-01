@@ -84,7 +84,7 @@
                                     <outlet property="createdTimeLabel" destination="5kC-Ja-qME" id="gHq-vf-ynB"/>
                                     <outlet property="jobTitleLabel" destination="Cej-ot-ux4" id="dVj-kO-MXk"/>
                                     <outlet property="jobTypeLabel" destination="mmX-M5-TPa" id="UcF-XR-USg"/>
-                                    <segue destination="73y-Bi-TZe" kind="show" id="rfT-B3-eoa"/>
+                                    <segue destination="73y-Bi-TZe" kind="show" identifier="detail" id="rfT-B3-eoa"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -96,6 +96,9 @@
                     <navigationItem key="navigationItem" title="Github Jobs" id="nZz-1N-vtN">
                         <barButtonItem key="rightBarButtonItem" title="Filter" id="e2X-lo-koo">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <segue destination="1Oz-aF-8m1" kind="presentation" identifier="filter" id="NtW-RU-0Ux"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="BXf-Gr-uSk">
@@ -304,7 +307,100 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="3085.5999999999999" y="23.645320197044335"/>
+            <point key="canvasLocation" x="3118" y="-335"/>
+        </scene>
+        <!--Filter-->
+        <scene sceneID="OT9-9B-A6c">
+            <objects>
+                <viewController id="8ke-tt-FZE" customClass="JobPositionsFilterViewController" customModule="github_jobs_ios" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rQ2-02-2Xb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="jaE-xR-Ffq">
+                                <rect key="frame" x="16" y="31.999999999999986" width="343" height="199.66666666666663"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filter Job Positions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OC6-oN-SIK">
+                                        <rect key="frame" x="0.0" y="0.0" width="213.66666666666666" height="28.666666666666668"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="By title, benefits, company, expertise" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="3EH-ji-oIt">
+                                        <rect key="frame" x="0.0" y="48.666666666666657" width="343" height="40"/>
+                                        <color key="backgroundColor" red="0.78142722379999996" green="0.78142722379999996" blue="0.78142722379999996" alpha="0.55115830115830111" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="c8N-fE-YZX"/>
+                                        </constraints>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="By city, state, zip code or country" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="go1-Xu-NId">
+                                        <rect key="frame" x="0.0" y="108.66666666666666" width="343" height="40"/>
+                                        <color key="backgroundColor" red="0.78142722379999996" green="0.78142722379999996" blue="0.78142722379999996" alpha="0.55115830119999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="zl2-ey-cEJ"/>
+                                        </constraints>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="qtw-Dg-L3Q">
+                                        <rect key="frame" x="0.0" y="168.66666666666669" width="343" height="31"/>
+                                        <subviews>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="QeX-TU-JYd">
+                                                <rect key="frame" x="0.0" y="0.0" width="51" height="31"/>
+                                            </switch>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fulltime only" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LWr-LT-s2c">
+                                                <rect key="frame" x="69" y="0.0" width="274" height="31"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="3EH-ji-oIt" firstAttribute="leading" secondItem="jaE-xR-Ffq" secondAttribute="leading" id="9ye-fn-SkZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="3EH-ji-oIt" secondAttribute="trailing" id="HFQ-U6-Xag"/>
+                                    <constraint firstItem="go1-Xu-NId" firstAttribute="leading" secondItem="jaE-xR-Ffq" secondAttribute="leading" id="Ohe-SQ-dNn"/>
+                                    <constraint firstAttribute="trailing" secondItem="go1-Xu-NId" secondAttribute="trailing" id="RsD-UY-XXw"/>
+                                    <constraint firstAttribute="trailing" secondItem="qtw-Dg-L3Q" secondAttribute="trailing" id="Xci-3B-ZVO"/>
+                                    <constraint firstItem="qtw-Dg-L3Q" firstAttribute="leading" secondItem="jaE-xR-Ffq" secondAttribute="leading" id="eqk-PP-n7o"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="jaE-xR-Ffq" firstAttribute="leading" secondItem="Pgi-ju-Dkk" secondAttribute="leading" constant="16" id="HJs-26-0eF"/>
+                            <constraint firstItem="jaE-xR-Ffq" firstAttribute="top" secondItem="Pgi-ju-Dkk" secondAttribute="top" constant="32" id="MZv-UT-Vy4"/>
+                            <constraint firstItem="Pgi-ju-Dkk" firstAttribute="trailing" secondItem="jaE-xR-Ffq" secondAttribute="trailing" constant="16" id="Vpj-5r-h9u"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Pgi-ju-Dkk"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Filter" id="8T7-mt-r6i">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Dnp-0L-7fn">
+                            <connections>
+                                <action selector="onCancel:" destination="8ke-tt-FZE" id="7yE-sz-XJY"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Search" id="Q2I-Vp-e5n">
+                            <connections>
+                                <segue destination="snb-S0-ymq" kind="unwind" unwindAction="unwindFormFilter:" id="OZZ-zj-iJo"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="descriptionTextField" destination="3EH-ji-oIt" id="cuw-J0-pVj"/>
+                        <outlet property="fullTimeSwitch" destination="QeX-TU-JYd" id="VxK-Vt-mJF"/>
+                        <outlet property="locationTextField" destination="go1-Xu-NId" id="0wx-SX-g5D"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EI8-Lh-oFX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="snb-S0-ymq" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="4137" y="24"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="8Em-rE-wMZ">
@@ -331,6 +427,29 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JAn-F2-lBL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1149.5999999999999" y="23.645320197044335"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Inv-d7-OZA">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1Oz-aF-8m1" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="KQq-gd-dIn">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" red="0.12941176470588234" green="0.58823529411764708" blue="0.95294117647058818" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="8ke-tt-FZE" kind="relationship" relationship="rootViewController" id="GdR-46-nLB"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Lk-oh-wax" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3118" y="399"/>
         </scene>
     </scenes>
     <resources>

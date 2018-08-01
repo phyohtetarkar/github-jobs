@@ -66,11 +66,20 @@ class GithubJobApi {
                     completion(ApiResponse.error("Error loading position"))
                 }
             case .failure(let error):
+                
                 completion(ApiResponse.error(error.localizedDescription))
             }
             
         }
         
+    }
+    
+    static func cancelAllRequests() {
+        Alamofire.SessionManager.default.session.getTasksWithCompletionHandler {(sessionData, uploadData, downloadData) in
+            sessionData.forEach { $0.cancel() }
+            uploadData.forEach { $0.cancel() }
+            downloadData.forEach { $0.cancel() }
+        }
     }
     
 }

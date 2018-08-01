@@ -2,7 +2,7 @@
 //  JobPositionDetailViewController.swift
 //  github-jobs-ios
 //
-//  Created by OP-Macmini3 on 7/31/18.
+//  Created by Phyo Htet Arkar on 7/31/18.
 //  Copyright © 2018 Phyo Htet Arkar. All rights reserved.
 //
 
