@@ -81,21 +81,24 @@ class JobPositionsFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
-        if (item?.itemId == R.id.action_filter) {
+        when (item?.itemId) {
+            R.id.action_filter -> {
+                val ft = fragmentManager?.beginTransaction()
+                val prev = fragmentManager?.findFragmentByTag(FILTER_DIALOG_TAG)
 
-            val ft = fragmentManager?.beginTransaction()
-            val prev = fragmentManager?.findFragmentByTag(FILTER_DIALOG_TAG)
+                if (prev != null) {
+                    ft?.remove(prev)
+                }
 
-            if (prev != null) {
-                ft?.remove(prev)
+                ft?.addToBackStack(null)
+
+                val frag = JobPositionsFilterFragment()
+                frag.show(ft, FILTER_DIALOG_TAG)
+
+                return true
             }
 
-            ft?.addToBackStack(null)
-
-            val frag = JobPositionsFilterFragment()
-            frag.show(ft, FILTER_DIALOG_TAG)
-
-            return true
+            R.id.action_refresh -> viewModel.find()
         }
 
         return super.onOptionsItemSelected(item)
