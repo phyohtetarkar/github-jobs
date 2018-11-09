@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph"
+    app:startDestination="@id/jobPositionsFragment">
+
+    <fragment
+        android:id="@+id/jobPositionsFragment"
+        android:name="com.phyohtet.githubjobs.ui.position.JobPositionsFragment"
+        android:label="JobPositionsFragment" >
+        <action
+            android:id="@+id/action_jobPositionsFragment_to_jobPositionDetailFragment"
+            app:destination="@id/jobPositionDetailFragment" />
+        <action
+            android:id="@+id/action_jobPositionsFragment_to_jobPositionsFilterFragment"
+            app:destination="@id/jobPositionsFilterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/jobPositionDetailFragment"
+        android:name="com.phyohtet.githubjobs.ui.position.detail.JobPositionDetailFragment"
+        android:label="JobPositionDetailFragment" />
+    <fragment
+        android:id="@+id/jobPositionsFilterFragment"
+        android:name="com.phyohtet.githubjobs.ui.position.JobPositionsFilterFragment"
+        android:label="JobPositionsFilterFragment" />
+</navigation>

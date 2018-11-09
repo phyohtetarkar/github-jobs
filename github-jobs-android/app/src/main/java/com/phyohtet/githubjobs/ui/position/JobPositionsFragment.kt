@@ -1,18 +1,18 @@
 package com.phyohtet.githubjobs.ui.position
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.os.Handler
-import android.support.v4.app.Fragment
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.*
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.phyohtet.githubjobs.R
-import com.phyohtet.githubjobs.model.DataSource
-import com.phyohtet.githubjobs.ui.RecyclerViewItemTouchListener
-import com.phyohtet.githubjobs.ui.position.detail.JobPositionDetailFragment
+import com.phyohtet.githubjobs.ServiceLocator
+import com.phyohtet.githubjobs.model.JobPositionSearch
+import com.phyohtet.githubjobs.model.Status
 import kotlinx.android.synthetic.main.fragment_job_positions.*
 
 class JobPositionsFragment : Fragment() {
@@ -20,53 +20,61 @@ class JobPositionsFragment : Fragment() {
     companion object {
         private const val TAG = "JobPositionsFragment"
         private const val FILTER_DIALOG_TAG = "JobPositionsFilter"
-        private const val LOAD_MORE_DELAY = 250L
     }
 
-    private lateinit var viewModel: JobPositionsViewModel
-    private lateinit var positionAdapter: JobPositionAdapter
+    private var viewModel: JobPositionsViewModel? = null
+    private val positionAdapter: JobPositionAdapter by lazy { JobPositionAdapter { viewModel?.retry() } }
+    private var init: (() -> Unit)? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        activity?.also {
-            viewModel = ViewModelProviders.of(it).get(JobPositionsViewModel::class.java)
+        viewModel = activity?.let {
+             ViewModelProviders.of(it, object : ViewModelProvider.Factory {
+                 override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                     val repo = ServiceLocator.getInstance(it).getGitHubJobRepo()
+                     @Suppress("UNCHECKED_CAST")
+                     return JobPositionsViewModel(repo) as T
+                 }
+             })[JobPositionsViewModel::class.java]
         }
-        positionAdapter = JobPositionAdapter()
-
         setHasOptionsMenu(true)
 
-        viewModel.positions.observe(this, Observer {
-            when (it?.status) {
-                DataSource.Status.LOADING -> {
-                    if (!viewModel.loadMore) {
-                        progress.visibility = View.VISIBLE
-                    }
-                }
-                DataSource.Status.ERROR -> {
-                    progress.visibility = View.GONE
-                }
-                DataSource.Status.SUCCESS -> {
-                    progress.visibility = View.GONE
-                    if (!viewModel.loadMore) {
-                        positionAdapter.submitList(it.data)
-                        recyclerView.smoothScrollToPosition(0)
-                        if (positionAdapter.itemCount > 0) {
-                            tvNoPosition.visibility = View.GONE
-                        } else {
-                            tvNoPosition.visibility = View.VISIBLE
-                        }
-                    } else {
-                        viewModel.loadMore = false
-                        // remove loading view
-                        positionAdapter.remove(positionAdapter.itemCount - 1)
-                        positionAdapter.appendList(it.data)
-                    }
+        viewModel?.positions?.observe(this, Observer {
+            positionAdapter.submitList(it)
+            if (it.size > 0) {
+                tvNoPosition.visibility = View.GONE
+            } else {
+                tvNoPosition.visibility = View.VISIBLE
+            }
+        })
 
+        viewModel?.networkState?.observe(this, Observer {
+            positionAdapter.setNetworkState(it)
+        })
+
+        viewModel?.refreshState?.observe(this, Observer {
+            tvNoPosition.visibility = View.GONE
+            when (it.status) {
+                Status.LOADING -> progress.visibility = View.VISIBLE
+                Status.SUCCESS -> progress.visibility = View.GONE
+                Status.FAILED -> {
+                    progress.visibility = View.GONE
+                    tvNoPosition.visibility = View.VISIBLE
+                    tvNoPosition.text = it.msg
                 }
             }
         })
 
-        viewModel.find()
+        positionAdapter.onPositionViewClickListener = {view, pos ->
+            positionAdapter.getItemAt(pos)?.also {
+                val args = Bundle()
+                args.putString("id", it.id)
+                view.findNavController().navigate(R.id.action_jobPositionsFragment_to_jobPositionDetailFragment, args)
+            }
+        }
+
+        init = { viewModel?.search?.value = JobPositionSearch() }
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -74,31 +82,22 @@ class JobPositionsFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        super.onCreateOptionsMenu(menu, inflater)
-
         inflater?.inflate(R.menu.menu_filter, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
         when (item?.itemId) {
             R.id.action_filter -> {
-                val ft = fragmentManager?.beginTransaction()
-                val prev = fragmentManager?.findFragmentByTag(FILTER_DIALOG_TAG)
-
-                if (prev != null) {
-                    ft?.remove(prev)
-                }
-
-                ft?.addToBackStack(null)
-
-                val frag = JobPositionsFilterFragment()
-                frag.show(ft, FILTER_DIALOG_TAG)
-
+                view?.findNavController()?.navigate(R.id.action_jobPositionsFragment_to_jobPositionsFilterFragment)
                 return true
             }
 
-            R.id.action_refresh -> viewModel.find()
+            R.id.action_refresh -> {
+                viewModel?.search()
+                return true
+            }
         }
 
         return super.onOptionsItemSelected(item)
@@ -107,53 +106,17 @@ class JobPositionsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val linearLayoutManager = LinearLayoutManager(context)
         recyclerView.apply {
             setHasFixedSize(true)
-            layoutManager = linearLayoutManager
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             adapter = positionAdapter
         }
+    }
 
-        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-
-                if (dy <= 0) {
-                    return
-                }
-
-                val size = positionAdapter.itemCount
-                val last = linearLayoutManager.findLastCompletelyVisibleItemPosition()
-                val threshold = 2
-
-
-                if (!viewModel.loadMore && size <= (last + threshold)) {
-                    Handler().postDelayed( { positionAdapter.append(null) }, LOAD_MORE_DELAY)
-                    viewModel.loadMore()
-                }
-
-            }
-        })
-
-        recyclerView.addOnItemTouchListener(RecyclerViewItemTouchListener(context, object : RecyclerViewItemTouchListener.OnTouchListener {
-            override fun onTouch(view: View, position: Int) {
-                positionAdapter.getItemAt(position)?.also { dto ->
-                    val frag = JobPositionDetailFragment()
-                    val b = Bundle().also {
-                        it.putString("id", dto.id)
-                    }
-                    frag.arguments = b
-
-                    fragmentManager?.beginTransaction()
-                            ?.addToBackStack(null)
-                            ?.replace(R.id.contentMain, frag)
-                            ?.commit()
-                }
-            }
-
-        }))
-
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        init?.invoke()
+        init = null
     }
 
 }

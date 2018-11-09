@@ -1,36 +1,40 @@
 package com.phyohtet.githubjobs.ui.position
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.Transformations
-import android.arch.lifecycle.ViewModel
-import com.phyohtet.githubjobs.model.DataSource
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
+import androidx.lifecycle.ViewModel
+import androidx.paging.PagedList
+import com.phyohtet.githubjobs.model.JobPositionSearch
+import com.phyohtet.githubjobs.model.NetworkResource
+import com.phyohtet.githubjobs.model.NetworkState
 import com.phyohtet.githubjobs.model.dto.JobPositionDTO
-import com.phyohtet.githubjobs.model.repo.impl.RepositoryFactory
+import com.phyohtet.githubjobs.model.repo.GithubJobRepo
 
-class JobPositionsViewModel : ViewModel() {
+class JobPositionsViewModel(private val repo: GithubJobRepo) : ViewModel() {
 
-    private val repo = RepositoryFactory.githubJobRepo
-    private val page = MutableLiveData<Int>()
+    val search = MutableLiveData<JobPositionSearch>()
 
-    var description = ""
-    var location = ""
-    var fullTime = false
-
-    var loadMore: Boolean = false
-
-    val positions: LiveData<DataSource<List<JobPositionDTO>>> = Transformations.switchMap(page) {
-                repo.findPositions(description, location, fullTime, it)
-            }
-
-    fun find() {
-        loadMore = false
-        page.value = 0
+    private val result: LiveData<NetworkResource<PagedList<JobPositionDTO>>> = Transformations.map(search) {
+        repo.findPositions(it)
     }
 
-    fun loadMore() {
-        loadMore = true
-        page.value = page.value?.let { it + 1 }
+    val positions: LiveData<PagedList<JobPositionDTO>> = Transformations.switchMap(result) { it.liveData }
+
+    val networkState: LiveData<NetworkState> = Transformations.switchMap(result) { it.networkState }
+
+    val refreshState: LiveData<NetworkState> = Transformations.switchMap(result) { it.refreshState }
+
+    fun search() {
+        search.value = search.value
+    }
+
+    fun refresh() {
+        result.value?.refresh?.invoke()
+    }
+
+    fun retry() {
+        result.value?.retry?.invoke()
     }
 
 }

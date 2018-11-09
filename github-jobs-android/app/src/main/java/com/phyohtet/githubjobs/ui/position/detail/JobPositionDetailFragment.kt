@@ -1,36 +1,41 @@
 package com.phyohtet.githubjobs.ui.position.detail
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import com.phyohtet.githubjobs.ServiceLocator
 import com.phyohtet.githubjobs.databinding.JobPositionDetailBinding
-import com.phyohtet.githubjobs.model.DataSource
+import com.phyohtet.githubjobs.ui.position.JobPositionsViewModel
 import kotlinx.android.synthetic.main.fragment_job_position_detail.*
 
 class JobPositionDetailFragment : Fragment() {
 
-    private lateinit var viewModel: JobPositionDetailViewModel
-    private lateinit var binding: JobPositionDetailBinding
-    private var id: String? = null
+    private var viewModel: JobPositionDetailViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(JobPositionDetailViewModel::class.java)
-
-        id = arguments?.getString("id")
-
+        viewModel = ViewModelProviders.of(this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                val repo = ServiceLocator.getInstance(context!!).getGitHubJobRepo()
+                @Suppress("UNCHECKED_CAST")
+                return JobPositionDetailViewModel(repo) as T
+            }
+        })[JobPositionDetailViewModel::class.java]
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = JobPositionDetailBinding.inflate(inflater, container, false)
+        val binding = JobPositionDetailBinding.inflate(inflater, container, false)
+        binding.setLifecycleOwner(this)
+        binding.viewModel = viewModel
         return binding.root
     }
 
@@ -50,24 +55,8 @@ class JobPositionDetailFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel.position.observe(this, Observer {
-
-            when (it?.status) {
-                DataSource.Status.LOADING -> {
-                }
-                DataSource.Status.ERROR -> {
-                }
-                DataSource.Status.SUCCESS -> {
-                    binding.dto = it.data
-                    binding.executePendingBindings()
-                    layoutProgress.visibility = View.GONE
-                }
-            }
-
-        })
-
-        viewModel.positionId.value = id
-
+        val id = arguments?.getString("id")
+        viewModel?.positionId?.value = id
     }
 
 }

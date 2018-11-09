@@ -5,11 +5,11 @@
 
     <data class="JobPositionsFilterBinding">
         <variable
-            name="vm"
+            name="viewModel"
             type="com.phyohtet.githubjobs.ui.position.JobPositionsViewModel"/>
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -33,7 +33,7 @@
             android:layout_marginTop="8dp"
             android:hint="@string/hint_job_description"
             android:inputType="text"
-            android:text="@={vm.description}"
+            android:text="@={viewModel.search.description}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
@@ -58,7 +58,7 @@
             android:layout_marginTop="8dp"
             android:hint="@string/hint_location"
             android:inputType="text"
-            android:text="@={vm.location}"
+            android:text="@={viewModel.search.location}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -71,7 +71,7 @@
             android:layout_marginTop="16dp"
             android:text="@string/title_full_time_only"
             android:textStyle="bold"
-            android:checked="@={vm.fullTime}"
+            android:checked="@={viewModel.search.fullTimeOnly}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editText2" />
 
@@ -113,6 +113,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
