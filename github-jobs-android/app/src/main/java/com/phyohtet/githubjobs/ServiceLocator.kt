@@ -4,6 +4,7 @@ import android.content.Context
 import com.phyohtet.githubjobs.model.api.GithubJobApi
 import com.phyohtet.githubjobs.model.api.RetrofitSingleton
 import com.phyohtet.githubjobs.model.repo.GithubJobRepo
+import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
 interface ServiceLocator {
@@ -25,15 +26,26 @@ interface ServiceLocator {
 
     fun getGitHubJobRepo(): GithubJobRepo
 
+    fun getGitHubJobApi(): GithubJobApi
+
+    fun getNetworkExecutor(): Executor
+
 }
 
 class DefaultServiceLocator(ctx: Context) : ServiceLocator {
 
-    private val repo: GithubJobRepo by lazy {
-        val api = RetrofitSingleton.create(GithubJobApi::class.java)
-        return@lazy GithubJobRepo(api, Executors.newFixedThreadPool(3))
+    private val api: GithubJobApi by lazy {
+        RetrofitSingleton.create(GithubJobApi::class.java)
     }
 
-    override fun getGitHubJobRepo(): GithubJobRepo = repo
+    private val NETWORK_IO = Executors.newFixedThreadPool(3)
+
+    override fun getGitHubJobRepo(): GithubJobRepo {
+        return GithubJobRepo(getGitHubJobApi(), getNetworkExecutor())
+    }
+
+    override fun getGitHubJobApi(): GithubJobApi = api
+
+    override fun getNetworkExecutor(): Executor = NETWORK_IO
 
 }

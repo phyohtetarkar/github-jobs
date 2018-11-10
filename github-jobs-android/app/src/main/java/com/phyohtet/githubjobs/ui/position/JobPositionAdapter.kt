@@ -15,10 +15,12 @@ import com.phyohtet.githubjobs.R
 import com.phyohtet.githubjobs.model.NetworkState
 import com.phyohtet.githubjobs.model.Status
 import com.phyohtet.githubjobs.model.dto.JobPositionDTO
+import kotlinx.android.synthetic.main.layout_job_position.view.*
 
 class JobPositionAdapter(private val retryCallBack: () -> Unit) : PagedListAdapter<JobPositionDTO, RecyclerView.ViewHolder>(diffUtil) {
 
     companion object {
+        private const val TAG = "JobPositionAdapter"
         private val diffUtil = object : DiffUtil.ItemCallback<JobPositionDTO>() {
             override fun areItemsTheSame(oldItem: JobPositionDTO, newItem: JobPositionDTO): Boolean {
                 return oldItem.id == newItem.id
@@ -87,7 +89,7 @@ class JobPositionAdapter(private val retryCallBack: () -> Unit) : PagedListAdapt
     inner class JobPositionViewHolder(private val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
 
         init {
-            itemView.setOnClickListener {
+            itemView.layoutPosition.setOnClickListener {
                 onPositionViewClickListener?.invoke(it, adapterPosition)
             }
         }
@@ -113,11 +115,15 @@ class JobPositionAdapter(private val retryCallBack: () -> Unit) : PagedListAdapt
 
         fun bind(networkState: NetworkState?) {
             when (networkState?.status) {
-                Status.LOADING -> progress.visibility = View.VISIBLE
-                Status.FAILED -> retry.visibility = View.VISIBLE
-                else -> {
-
+                Status.LOADING -> {
+                    progress.visibility = View.VISIBLE
+                    retry.visibility = View.INVISIBLE
                 }
+                Status.FAILED -> {
+                    retry.visibility = View.VISIBLE
+                    progress.visibility = View.INVISIBLE
+                }
+                else -> {}
             }
         }
     }

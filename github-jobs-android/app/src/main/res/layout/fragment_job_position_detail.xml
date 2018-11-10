@@ -212,7 +212,7 @@
 
         </ScrollView>
 
-        <LinearLayout
+        <FrameLayout
             android:id="@+id/layoutProgress"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -225,13 +225,22 @@
             app:layout_constraintTop_toTopOf="parent"
             android:gravity="center_vertical">
 
+            <TextView
+                android:id="@+id/tvNetworkError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:text="Network Error."/>
+
             <ProgressBar
+                android:id="@+id/progress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:indeterminate="true"/>
 
-        </LinearLayout>
+        </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

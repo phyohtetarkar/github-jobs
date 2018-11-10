@@ -10,18 +10,18 @@ class JobPositionDTO {
     @JsonDeserialize(using = DateDeserializer::class)
     @JsonProperty("created_at")
     val createdAt: Date? = null
-    val title: String = ""
-    val location: String = ""
-    val type: String = ""
-    val description: String = ""
+    val title: String? = null
+    val location: String? = null
+    val type: String? = null
+    val description: String? = null
     @JsonProperty("how_to_apply")
-    val howToApply: String = ""
-    val company: String = ""
+    val howToApply: String? = null
+    val company: String? = null
     @JsonProperty("company_url")
-    val companyUrl: String = ""
+    val companyUrl: String? = null
     @JsonProperty("company_logo")
-    val companyLogo: String = ""
-    val url: String = ""
+    val companyLogo: String? = null
+    val url: String? = null
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -47,17 +47,16 @@ class JobPositionDTO {
     override fun hashCode(): Int {
         var result = id.hashCode()
         result = 31 * result + (createdAt?.hashCode() ?: 0)
-        result = 31 * result + title.hashCode()
-        result = 31 * result + location.hashCode()
-        result = 31 * result + type.hashCode()
-        result = 31 * result + description.hashCode()
-        result = 31 * result + howToApply.hashCode()
-        result = 31 * result + company.hashCode()
-        result = 31 * result + companyUrl.hashCode()
-        result = 31 * result + companyLogo.hashCode()
-        result = 31 * result + url.hashCode()
+        result = 31 * result + (title?.hashCode() ?: 0)
+        result = 31 * result + (location?.hashCode() ?: 0)
+        result = 31 * result + (type?.hashCode() ?: 0)
+        result = 31 * result + (description?.hashCode() ?: 0)
+        result = 31 * result + (howToApply?.hashCode() ?: 0)
+        result = 31 * result + (company?.hashCode() ?: 0)
+        result = 31 * result + (companyUrl?.hashCode() ?: 0)
+        result = 31 * result + (companyLogo?.hashCode() ?: 0)
+        result = 31 * result + (url?.hashCode() ?: 0)
         return result
     }
-
 
 }

@@ -2,6 +2,7 @@ package com.phyohtet.githubjobs.ui.position
 
 import android.os.Bundle
 import android.view.*
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
@@ -13,6 +14,7 @@ import com.phyohtet.githubjobs.R
 import com.phyohtet.githubjobs.ServiceLocator
 import com.phyohtet.githubjobs.model.JobPositionSearch
 import com.phyohtet.githubjobs.model.Status
+import com.phyohtet.githubjobs.ui.MainActivity
 import kotlinx.android.synthetic.main.fragment_job_positions.*
 
 class JobPositionsFragment : Fragment() {
@@ -28,6 +30,8 @@ class JobPositionsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+
         viewModel = activity?.let {
              ViewModelProviders.of(it, object : ViewModelProvider.Factory {
                  override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -37,10 +41,10 @@ class JobPositionsFragment : Fragment() {
                  }
              })[JobPositionsViewModel::class.java]
         }
-        setHasOptionsMenu(true)
 
         viewModel?.positions?.observe(this, Observer {
             positionAdapter.submitList(it)
+            recyclerView.smoothScrollToPosition(0)
             if (it.size > 0) {
                 tvNoPosition.visibility = View.GONE
             } else {
@@ -67,8 +71,7 @@ class JobPositionsFragment : Fragment() {
 
         positionAdapter.onPositionViewClickListener = {view, pos ->
             positionAdapter.getItemAt(pos)?.also {
-                val args = Bundle()
-                args.putString("id", it.id)
+                val args = bundleOf("id" to it.id)
                 view.findNavController().navigate(R.id.action_jobPositionsFragment_to_jobPositionDetailFragment, args)
             }
         }
@@ -90,7 +93,14 @@ class JobPositionsFragment : Fragment() {
 
         when (item?.itemId) {
             R.id.action_filter -> {
-                view?.findNavController()?.navigate(R.id.action_jobPositionsFragment_to_jobPositionsFilterFragment)
+                val ft = fragmentManager?.beginTransaction()
+                val prev = fragmentManager?.findFragmentByTag(FILTER_DIALOG_TAG)
+                if (prev != null) {
+                    ft?.remove(prev)
+                }
+                ft?.addToBackStack(null)
+                val dialogFragment = JobPositionsFilterFragment()
+                dialogFragment.show(ft, FILTER_DIALOG_TAG)
                 return true
             }
 
@@ -111,12 +121,21 @@ class JobPositionsFragment : Fragment() {
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             adapter = positionAdapter
         }
+
+        (activity as MainActivity?)?.toolbarTitle?.setOnClickListener {
+            recyclerView.smoothScrollToPosition(0)
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         init?.invoke()
         init = null
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        (activity as MainActivity?)?.toolbarTitle?.setOnClickListener(null)
     }
 
 }

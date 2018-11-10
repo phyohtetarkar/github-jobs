@@ -37,23 +37,27 @@ class JobPositionsDataSource(
             api.findPositions(search.description, search.location, 0)
         }
 
-        //networkState.postValue(NetworkState.LOADING)
         initialLoad.postValue(NetworkState.LOADING)
 
         try {
             val resp = call.execute()
-            val positions = resp.body() ?: emptyList()
+            if (resp.isSuccessful) {
+                val positions = resp.body() ?: emptyList()
 
-            retry = null
-            //networkState.postValue(NetworkState.LOADED)
-            initialLoad.postValue(NetworkState.LOADED)
-            callback.onResult(positions, 0, 1)
+                retry = null
+                initialLoad.postValue(NetworkState.LOADED)
+                callback.onResult(positions, 0, 1)
+            } else {
+                retry = {
+                    loadInitial(params, callback)
+                }
+                initialLoad.postValue(NetworkState.error("Network Error."))
+            }
         } catch (e: IOException) {
             retry = {
                 loadInitial(params, callback)
             }
-            //networkState.postValue(NetworkState.error(e.message))
-            initialLoad.postValue(NetworkState.error(e.message))
+            initialLoad.postValue(NetworkState.error("Network Error."))
         }
 
     }
@@ -69,16 +73,23 @@ class JobPositionsDataSource(
 
         try {
             val resp = call.execute()
-            val positions = resp.body() ?: emptyList()
+            if (resp.isSuccessful) {
+                val positions = resp.body() ?: emptyList()
 
-            retry = null
-            networkState.postValue(NetworkState.LOADED)
-            callback.onResult(positions, params.key + 1)
+                retry = null
+                networkState.postValue(NetworkState.LOADED)
+                callback.onResult(positions, params.key + 1)
+            } else {
+                retry = {
+                    loadAfter(params, callback)
+                }
+                networkState.postValue(NetworkState.error("Network Error."))
+            }
         } catch (e: IOException) {
             retry = {
                 loadAfter(params, callback)
             }
-            networkState.postValue(NetworkState.error(e.message))
+            networkState.postValue(NetworkState.error("Network Error."))
         }
     }
 

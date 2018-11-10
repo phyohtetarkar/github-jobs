@@ -18,8 +18,8 @@ object RetrofitSingleton {
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
         client = OkHttpClient.Builder()
-                .connectTimeout(40, TimeUnit.SECONDS)
-                .readTimeout(40, TimeUnit.SECONDS)
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
                 .build()
 
         retrofit = Retrofit.Builder()

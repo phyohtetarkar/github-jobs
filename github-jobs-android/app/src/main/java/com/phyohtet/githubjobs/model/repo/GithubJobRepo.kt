@@ -18,7 +18,7 @@ class GithubJobRepo(
 
     fun findPositions(search: JobPositionSearch): NetworkResource<PagedList<JobPositionDTO>> {
         val sourceFactory = JobPositionsDataSourceFactory(api, search, executor)
-        val livePagedList = sourceFactory.toLiveData(pageSize = 50, fetchExecutor = executor)
+        val livePagedList = sourceFactory.toLiveData(pageSize = 20, fetchExecutor = executor)
         val refreshState = Transformations.switchMap(sourceFactory.sourceLiveData) {
             it.initialLoad
         }

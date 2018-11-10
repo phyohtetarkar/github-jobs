@@ -4,8 +4,9 @@ import android.os.Build
 import android.text.Html
 import android.text.format.DateUtils
 import android.view.View
+import android.widget.FrameLayout
 import android.widget.ImageView
-import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.phyohtet.githubjobs.R
@@ -49,10 +50,18 @@ class BindingUtil {
 
         @BindingAdapter("android:visibility")
         @JvmStatic
-        fun setVisibility(layout: LinearLayout, status: Status) {
+        fun setVisibility(layout: FrameLayout, status: Status?) {
+            val progress = layout.findViewById<ProgressBar>(R.id.progress)
+            val textView = layout.findViewById<TextView>(R.id.tvNetworkError)
             when (status) {
-                Status.LOADING -> layout.visibility = View.VISIBLE
-                else -> layout.visibility = View.GONE
+                Status.SUCCESS -> layout.visibility = View.GONE
+                else -> {
+                    layout.visibility = View.VISIBLE
+                    if (status == Status.FAILED) {
+                        progress.visibility = View.GONE
+                        textView.visibility = View.VISIBLE
+                    }
+                }
             }
         }
     }
