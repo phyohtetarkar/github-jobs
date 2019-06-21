@@ -43,10 +43,13 @@ class JobPositionsDataSource(
             val resp = call.execute()
             if (resp.isSuccessful) {
                 val positions = resp.body() ?: emptyList()
-
                 retry = null
-                initialLoad.postValue(NetworkState.LOADED)
-                callback.onResult(positions, 0, 1)
+                if (positions.isEmpty()) {
+                    initialLoad.postValue(NetworkState.error("No position found."))
+                } else {
+                    initialLoad.postValue(NetworkState.LOADED)
+                    callback.onResult(positions, null, 2)
+                }
             } else {
                 retry = {
                     loadInitial(params, callback)
@@ -75,10 +78,13 @@ class JobPositionsDataSource(
             val resp = call.execute()
             if (resp.isSuccessful) {
                 val positions = resp.body() ?: emptyList()
-
                 retry = null
-                networkState.postValue(NetworkState.LOADED)
-                callback.onResult(positions, params.key + 1)
+                if (positions.isEmpty()) {
+                    networkState.postValue(NetworkState.error("No position found."))
+                } else {
+                    networkState.postValue(NetworkState.LOADED)
+                    callback.onResult(positions, params.key + 1)
+                }
             } else {
                 retry = {
                     loadAfter(params, callback)

@@ -26,7 +26,6 @@ class JobPositionsFragment : Fragment() {
 
     private var viewModel: JobPositionsViewModel? = null
     private val positionAdapter: JobPositionAdapter by lazy { JobPositionAdapter { viewModel?.retry() } }
-    private var init: (() -> Unit)? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,11 +44,6 @@ class JobPositionsFragment : Fragment() {
         viewModel?.positions?.observe(this, Observer {
             positionAdapter.submitList(it)
             recyclerView.smoothScrollToPosition(0)
-            if (it.size > 0) {
-                tvNoPosition.visibility = View.GONE
-            } else {
-                tvNoPosition.visibility = View.VISIBLE
-            }
         })
 
         viewModel?.networkState?.observe(this, Observer {
@@ -63,8 +57,8 @@ class JobPositionsFragment : Fragment() {
                 Status.SUCCESS -> progress.visibility = View.GONE
                 Status.FAILED -> {
                     progress.visibility = View.GONE
-                    tvNoPosition.visibility = View.VISIBLE
                     tvNoPosition.text = it.msg
+                    tvNoPosition.visibility = View.VISIBLE
                 }
             }
         })
@@ -76,7 +70,7 @@ class JobPositionsFragment : Fragment() {
             }
         }
 
-        init = { viewModel?.search?.value = JobPositionSearch() }
+        viewModel?.search?.value = JobPositionSearch()
 
     }
 
@@ -125,12 +119,6 @@ class JobPositionsFragment : Fragment() {
         (activity as MainActivity?)?.toolbarTitle?.setOnClickListener {
             recyclerView.smoothScrollToPosition(0)
         }
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        init?.invoke()
-        init = null
     }
 
     override fun onDestroyView() {

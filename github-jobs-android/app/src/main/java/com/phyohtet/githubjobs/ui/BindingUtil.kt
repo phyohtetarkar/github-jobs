@@ -20,10 +20,14 @@ class BindingUtil {
         @BindingAdapter("image")
         @JvmStatic
         fun setImage(imageView: ImageView, url: String?) {
-            if (url != null) {
-                val p = Picasso.get()
-                p.load(url).placeholder(R.drawable.loading).into(imageView)
-            } else {
+            try {
+                if (url != null) {
+                    val p = Picasso.get()
+                    p.load(url).fit().placeholder(R.drawable.loading).into(imageView)
+                } else {
+                    imageView.setImageResource(R.drawable.placeholder)
+                }
+            } catch (e: Exception) {
                 imageView.setImageResource(R.drawable.placeholder)
             }
         }

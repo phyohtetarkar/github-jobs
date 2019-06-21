@@ -14,9 +14,7 @@
         android:layout_height="wrap_content"
         android:background="@android:color/white">
 
-        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutPosition"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
