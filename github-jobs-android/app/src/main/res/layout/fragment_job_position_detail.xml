@@ -102,15 +102,13 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
-                        <ImageView
-                            android:id="@+id/imageView2"
+                        <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="120dp"
                             android:layout_height="120dp"
                             app:image="@{viewModel.position.companyLogo}"
                             android:layout_margin="8dp"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/placeholder"
-                            tools:ignore="ContentDescription" />
+                            android:src="@drawable/placeholder" />
 
                     </com.google.android.material.card.MaterialCardView>
 

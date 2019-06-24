@@ -3,12 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_refresh"
-        android:title="@string/reload"
-        android:icon="@drawable/ic_refresh_white"
-        app:showAsAction="always"/>
-
-    <item
         android:id="@+id/action_filter"
         android:title="@string/filter"
         android:icon="@drawable/ic_filter_list_white"

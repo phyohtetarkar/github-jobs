@@ -44,6 +44,7 @@ class JobPositionsFragment : Fragment() {
         viewModel?.positions?.observe(this, Observer {
             positionAdapter.submitList(it)
             recyclerView.smoothScrollToPosition(0)
+
         })
 
         viewModel?.networkState?.observe(this, Observer {
@@ -51,14 +52,20 @@ class JobPositionsFragment : Fragment() {
         })
 
         viewModel?.refreshState?.observe(this, Observer {
-            tvNoPosition.visibility = View.GONE
+            tvMessage.visibility = View.GONE
+            tvMessage.text = null
             when (it.status) {
-                Status.LOADING -> progress.visibility = View.VISIBLE
-                Status.SUCCESS -> progress.visibility = View.GONE
+                Status.LOADING -> swipeRefreshLayout.isRefreshing = true
+                Status.SUCCESS -> swipeRefreshLayout.isRefreshing = false
+                Status.NOT_FOUND -> {
+                    swipeRefreshLayout.isRefreshing = false
+                    tvMessage.visibility = View.VISIBLE
+                    tvMessage.setText(R.string.no_position_found)
+                }
                 Status.FAILED -> {
-                    progress.visibility = View.GONE
-                    tvNoPosition.text = it.msg
-                    tvNoPosition.visibility = View.VISIBLE
+                    swipeRefreshLayout.isRefreshing = false
+                    tvMessage.text = it.msg
+                    tvMessage.visibility = View.VISIBLE
                 }
             }
         })
@@ -97,11 +104,6 @@ class JobPositionsFragment : Fragment() {
                 dialogFragment.show(ft, FILTER_DIALOG_TAG)
                 return true
             }
-
-            R.id.action_refresh -> {
-                viewModel?.search()
-                return true
-            }
         }
 
         return super.onOptionsItemSelected(item)
@@ -114,6 +116,11 @@ class JobPositionsFragment : Fragment() {
             setHasFixedSize(true)
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             adapter = positionAdapter
+        }
+
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary)
+        swipeRefreshLayout.setOnRefreshListener {
+            viewModel?.search()
         }
 
         (activity as MainActivity?)?.toolbarTitle?.setOnClickListener {

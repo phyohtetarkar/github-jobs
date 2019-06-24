@@ -44,12 +44,8 @@ class JobPositionsDataSource(
             if (resp.isSuccessful) {
                 val positions = resp.body() ?: emptyList()
                 retry = null
-                if (positions.isEmpty()) {
-                    initialLoad.postValue(NetworkState.error("No position found."))
-                } else {
-                    initialLoad.postValue(NetworkState.LOADED)
-                    callback.onResult(positions, null, 2)
-                }
+                initialLoad.postValue(if (positions.isEmpty()) NetworkState.NOT_FOUND else NetworkState.LOADED)
+                callback.onResult(positions, null, 2)
             } else {
                 retry = {
                     loadInitial(params, callback)
@@ -57,6 +53,7 @@ class JobPositionsDataSource(
                 initialLoad.postValue(NetworkState.error("Network Error."))
             }
         } catch (e: IOException) {
+            // e.printStackTrace()
             retry = {
                 loadInitial(params, callback)
             }
@@ -79,12 +76,8 @@ class JobPositionsDataSource(
             if (resp.isSuccessful) {
                 val positions = resp.body() ?: emptyList()
                 retry = null
-                if (positions.isEmpty()) {
-                    networkState.postValue(NetworkState.error("No position found."))
-                } else {
-                    networkState.postValue(NetworkState.LOADED)
-                    callback.onResult(positions, params.key + 1)
-                }
+                networkState.postValue(if (positions.isEmpty()) NetworkState.NOT_FOUND else NetworkState.LOADED)
+                callback.onResult(positions, params.key + 1)
             } else {
                 retry = {
                     loadAfter(params, callback)
@@ -92,6 +85,7 @@ class JobPositionsDataSource(
                 networkState.postValue(NetworkState.error("Network Error."))
             }
         } catch (e: IOException) {
+            // e.printStackTrace()
             retry = {
                 loadAfter(params, callback)
             }

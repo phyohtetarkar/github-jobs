@@ -84,7 +84,7 @@ class JobPositionAdapter(private val retryCallBack: () -> Unit) : PagedListAdapt
 
     }
 
-    private fun hasExtraRow() = networkState != null && networkState != NetworkState.LOADED
+    private fun hasExtraRow() = networkState != null && (networkState != NetworkState.LOADED && networkState != NetworkState.NOT_FOUND)
 
     inner class JobPositionViewHolder(private val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -104,8 +104,8 @@ class JobPositionAdapter(private val retryCallBack: () -> Unit) : PagedListAdapt
 
     inner class NetworkStateViewHolder(view: View, private val retryCallBack: () -> Unit) : RecyclerView.ViewHolder(view) {
 
-        val progress = view.findViewById<ProgressBar>(R.id.progressLoadMore)
-        val retry = view.findViewById<Button>(R.id.btnRetry)
+        private val progress = view.findViewById<ProgressBar>(R.id.progressLoadMore)
+        private val retry = view.findViewById<Button>(R.id.btnRetry)
 
         init {
             retry.setOnClickListener {

@@ -9,8 +9,8 @@ android {
         applicationId "com.phyohtet.githubjobs"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 4
-        versionName "1.2"
+        versionCode 6
+        versionName "1.2.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

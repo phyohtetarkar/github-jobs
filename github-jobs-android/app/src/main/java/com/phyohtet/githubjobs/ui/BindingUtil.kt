@@ -23,7 +23,7 @@ class BindingUtil {
             try {
                 if (url != null) {
                     val p = Picasso.get()
-                    p.load(url).fit().placeholder(R.drawable.loading).into(imageView)
+                    p.load(url).resize(250, 250).placeholder(R.drawable.loading).into(imageView)
                 } else {
                     imageView.setImageResource(R.drawable.placeholder)
                 }
