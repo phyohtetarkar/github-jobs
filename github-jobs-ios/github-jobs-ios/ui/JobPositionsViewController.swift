@@ -29,7 +29,7 @@ class JobPositionsViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
-        self.refreshControl?.addTarget(self, action: #selector(find), for: UIControlEvents.valueChanged)
+        self.refreshControl?.addTarget(self, action: #selector(find), for: UIControl.Event.valueChanged)
         
         find()
     }
@@ -55,11 +55,7 @@ class JobPositionsViewController: UITableViewController {
         }
         
         let dto = jobPositions[indexPath.row]
-        cell.jobTitleLabel.text = dto.title
-        cell.createdTimeLabel.text = dto.createdAt?.timeAgoDisplay()
-        cell.companyNameLabel.text = dto.company
-        cell.jobTypeLabel.text = dto.type
-        cell.companyImageView.load(imageUrl: dto.companyLogo)
+        cell.bind(dto)
 
         return cell
     }
@@ -130,6 +126,7 @@ class JobPositionsViewController: UITableViewController {
             case .success(let data):
                 self?.jobPositions = data
                 self?.tableView.reloadData()
+                self?.page += 1
             case .error(let error):
                 self?.showAlert(msg: error)
             }
@@ -166,27 +163,4 @@ class JobPositionsViewController: UITableViewController {
         
         present(alert, animated: true, completion: nil)
     }
-}
-
-extension UIImageView {
-    
-    func load(imageUrl: String?) {
-        
-        if let url = imageUrl {
-            self.image = UIImage(named: "loading")
-            Alamofire.request(url).responseImage { [weak self] resp in
-                switch resp.result {
-                case .success(let value):
-                    self?.image = value
-                case .failure(let error):
-                    print(error.localizedDescription)
-                    self?.image = UIImage(named: "placeholder")
-                }
-            }
-        } else {
-            self.image = UIImage(named: "placeholder")
-        }
-        
-    }
-    
 }
