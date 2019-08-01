@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Alamofire
 import AlamofireImage
 
 let imageCache = AutoPurgingImageCache(
