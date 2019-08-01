@@ -142,6 +142,7 @@ class JobPositionsViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     @objc private func find() {
+        self.loading = true
         self.page = 0
         dataRequest?.cancel()
         dataRequest = GithubJobApi.findJobPositions(description: desc, location: location, fullTime: fulltime) { [weak self] resp in
@@ -163,11 +164,14 @@ class JobPositionsViewController: UIViewController, UITableViewDataSource, UITab
                 self?.filterSearchIndicatorView?.isHidden = true
             }
             
+            self?.dataRequest = nil
+            
             DispatchQueue.main.asyncAfter(deadline: .now() + .microseconds(300)) {
-                
                 if self?.tableView.numberOfRows(inSection: 0) != 0 {
                     self?.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
                 }
+                self?.loading = false
+                // self?.tableView.setContentOffset(.zero, animated: true)
             }
             
         }
@@ -191,7 +195,7 @@ class JobPositionsViewController: UIViewController, UITableViewDataSource, UITab
                 self?.page -= 1
                 self?.showAlert(msg: error)
             }
-            
+            self?.dataRequest = nil
             self?.loading = false
             self?.toggleActivityIndicatorVisibility(hidden: true)
         }
