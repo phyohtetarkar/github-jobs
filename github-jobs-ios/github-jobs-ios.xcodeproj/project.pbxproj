@@ -139,8 +139,8 @@
 		5C9F99D2210D767A00D46EE8 /* github-jobs-ios */ = {
 			isa = PBXGroup;
 			children = (
-				5C16FE07210F49F2006BEDD3 /* ui */,
 				5C9F9A01210D7ACA00D46EE8 /* model */,
+				5C16FE07210F49F2006BEDD3 /* ui */,
 				5C9F99D3210D767A00D46EE8 /* AppDelegate.swift */,
 				5C9F99D7210D767A00D46EE8 /* Main.storyboard */,
 				5C9F99DA210D767A00D46EE8 /* Assets.xcassets */,
@@ -549,7 +549,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.phyohtet.githubjob;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.phyohtet.github-job";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "Phyo Htet Dev";
 				SWIFT_VERSION = 5.0;
@@ -574,7 +574,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.phyohtet.githubjob;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.phyohtet.github-job";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "Phyo Htet Dist";
 				SWIFT_VERSION = 5.0;

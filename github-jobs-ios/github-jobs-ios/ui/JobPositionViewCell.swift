@@ -35,7 +35,7 @@ class JobPositionViewCell: UITableViewCell {
     
     func bind(_ dto: JobPositionDTO) {
         self.jobTitleLabel.text = dto.title
-        self.createdTimeLabel.text = dto.createdAt?.timeAgoDisplay()
+        self.createdTimeLabel.text = dto.createdAt?.getElapsedInterval()
         self.companyNameLabel.text = dto.company
         self.jobTypeLabel.text = dto.type
         self.companyImageView.load(imageUrl: dto.companyLogo)
