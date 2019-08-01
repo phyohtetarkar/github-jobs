@@ -15,13 +15,16 @@ class JobPositionDetailViewController: UIViewController {
     @IBOutlet weak var companyLogoImageView: UIImageView!
     @IBOutlet weak var companyTitleLabel: UILabel!
     @IBOutlet weak var companyWebSiteLabel: UILabel!
-    @IBOutlet weak var howToApplyLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var howToApplyTextView: UITextView!
+    @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var jobTitleLabel: UILabel!
     @IBOutlet weak var jobTypeLocationLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        howToApplyTextView.textContainer.lineFragmentPadding = .zero
+        descriptionTextView.textContainer.lineFragmentPadding = .zero
         
         if let dto = jobPosition {
             companyLogoImageView.load(imageUrl: dto.companyLogo)
@@ -31,13 +34,13 @@ class JobPositionDetailViewController: UIViewController {
             jobTypeLocationLabel.text = "\(dto.type) / \(dto.location)"
             
             do {
-                howToApplyLabel.attributedText = try NSAttributedString(data: dto.howToApply.data(using: .utf8)!, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding:String.Encoding.utf8.rawValue], documentAttributes: nil)
+                howToApplyTextView.attributedText = try NSAttributedString(data: dto.howToApply.data(using: .utf8)!, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding:String.Encoding.utf8.rawValue], documentAttributes: nil)
             } catch let error {
                 print(error)
             }
             
             do {
-                descriptionLabel.attributedText = try NSAttributedString(data: dto.description.data(using: .utf8)!, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding:String.Encoding.utf8.rawValue], documentAttributes: nil)
+                descriptionTextView.attributedText = try NSAttributedString(data: dto.description.data(using: .utf8)!, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding:String.Encoding.utf8.rawValue], documentAttributes: nil)
             } catch let error {
                 print(error)
             }

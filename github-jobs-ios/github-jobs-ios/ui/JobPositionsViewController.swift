@@ -10,15 +10,24 @@ import UIKit
 import Alamofire
 import AlamofireImage
 
-class JobPositionsViewController: UITableViewController {
+class JobPositionsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var loadMoreIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var loadMoreContainerView: UIView!
+    @IBOutlet weak var loadMoreContainerViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var filterSearchIndicatorView: RoundedView!
+    @IBOutlet weak var filterSearchIndicator: UIActivityIndicatorView!
     
     private var jobPositions = [JobPositionDTO]()
     private var loading = false
     private var page = 0
     
-    private var desc: String? = nil
-    private var location: String? = nil
+    private var desc: String?
+    private var location: String?
     private var fulltime = false
+    
+    private var dataRequest: DataRequest?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,10 +37,21 @@ class JobPositionsViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        // toggleActivityIndicatorVisibility(hidden: true)
         
-        self.refreshControl?.addTarget(self, action: #selector(find), for: UIControl.Event.valueChanged)
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
         
+        self.tableView.refreshControl = UIRefreshControl()
+        self.tableView.refreshControl?.addTarget(self, action: #selector(find), for: UIControl.Event.valueChanged)
+        
+        self.tableView.refreshControl?.beginRefreshing()
         find()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        dataRequest?.cancel()
     }
 
     override func didReceiveMemoryWarning() {
@@ -41,15 +61,15 @@ class JobPositionsViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return jobPositions.count
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CellJobPosition", for: indexPath) as? JobPositionViewCell else {
             fatalError("The dequeued cell is not an instance of JobPositionViewCell.")
         }
@@ -60,7 +80,7 @@ class JobPositionsViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let offset = jobPositions.count - 1
         
         if !loading && indexPath.row == offset {
@@ -89,13 +109,13 @@ class JobPositionsViewController: UITableViewController {
                 return
             }
             
+            self.tableView.deselectRow(at: indexPath, animated: true)
             let dto = jobPositions[indexPath.row]
             jobPositionDetailViewController.jobPosition = dto
         case "filter":
             guard let navigationViewController = segue.destination as? UINavigationController, let jobPositionFilterViewController = navigationViewController.topViewController as? JobPositionsFilterViewController else {
                 return
             }
-            print("desc: \(desc ?? ""), location: \(location ?? ""), fulltime: \(fulltime)")
             jobPositionFilterViewController.desc = desc
             jobPositionFilterViewController.location = location
             jobPositionFilterViewController.fulltime = fulltime
@@ -114,14 +134,17 @@ class JobPositionsViewController: UITableViewController {
         location = vc.locationTextField.text
         fulltime = vc.fullTimeSwitch.isOn
         
+        
+        filterSearchIndicatorView.isHidden = false
+        filterSearchIndicator.startAnimating()
+        
         find()
     }
     
     @objc private func find() {
-        self.refreshControl?.beginRefreshing()
         self.page = 0
-        GithubJobApi.cancelAllRequests()
-        GithubJobApi.findJobPositions(description: desc, location: location, fullTime: fulltime) { [weak self] resp in
+        dataRequest?.cancel()
+        dataRequest = GithubJobApi.findJobPositions(description: desc, location: location, fullTime: fulltime) { [weak self] resp in
             switch resp {
             case .success(let data):
                 self?.jobPositions = data
@@ -131,14 +154,30 @@ class JobPositionsViewController: UITableViewController {
                 self?.showAlert(msg: error)
             }
             
-            self?.refreshControl?.endRefreshing()
+            if self?.tableView.refreshControl?.isRefreshing ?? false {
+                self?.tableView.refreshControl?.endRefreshing()
+            }
+            
+            if let v = self?.filterSearchIndicatorView, !v.isHidden {
+                self?.filterSearchIndicator?.stopAnimating()
+                self?.filterSearchIndicatorView?.isHidden = true
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + .microseconds(300)) {
+                
+                if self?.tableView.numberOfRows(inSection: 0) != 0 {
+                    self?.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+                }
+            }
+            
         }
     }
     
     private func loadMore() {
         self.loading = true
         self.page += 1
-        GithubJobApi.findJobPositions(description: desc, location: location, fullTime: fulltime, page: page) { [weak self] resp in
+        toggleActivityIndicatorVisibility(hidden: false)
+        dataRequest = GithubJobApi.findJobPositions(description: desc, location: location, fullTime: fulltime, page: page) { [weak self] resp in
             switch resp {
             case .success(let data):
                 if data.count > 0, let offset = self?.jobPositions.count {
@@ -154,6 +193,7 @@ class JobPositionsViewController: UITableViewController {
             }
             
             self?.loading = false
+            self?.toggleActivityIndicatorVisibility(hidden: true)
         }
     }
     
@@ -162,5 +202,18 @@ class JobPositionsViewController: UITableViewController {
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         
         present(alert, animated: true, completion: nil)
+    }
+    
+    private func toggleActivityIndicatorVisibility(hidden: Bool) {
+        if hidden {
+            self.loadMoreIndicator.stopAnimating()
+            self.loadMoreContainerViewHeightConstraint.constant = 0
+        } else {
+            self.loadMoreIndicator.startAnimating()
+            self.loadMoreContainerViewHeightConstraint.constant = 60
+        }
+        self.loadMoreContainerView.isHidden = hidden
+       
+        self.loadMoreContainerView.layoutIfNeeded()
     }
 }

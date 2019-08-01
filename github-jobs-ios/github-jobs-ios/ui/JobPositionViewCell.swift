@@ -23,8 +23,6 @@ class JobPositionViewCell: UITableViewCell {
     @IBOutlet weak var companyNameLabel: UILabel!
     @IBOutlet weak var jobTypeLabel: UILabel!
     
-    var dataRequest: DataRequest?
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -37,20 +35,17 @@ class JobPositionViewCell: UITableViewCell {
     }
     
     func bind(_ dto: JobPositionDTO) {
-        dataRequest?.cancel()
-        
         self.jobTitleLabel.text = dto.title
         self.createdTimeLabel.text = dto.createdAt?.timeAgoDisplay()
         self.companyNameLabel.text = dto.company
         self.jobTypeLabel.text = dto.type
-        dataRequest = self.companyImageView.load(imageUrl: dto.companyLogo)
+        self.companyImageView.load(imageUrl: dto.companyLogo)
     }
 }
 
 extension UIImageView {
     
-    @discardableResult
-    func load(imageUrl: String?) -> DataRequest? {
+    func load(imageUrl: String?) {
         if let urlStr = imageUrl, let url = URL(string: urlStr) {
             let urlRequest = URLRequest(url: url)
             self.image = UIImage(named: "loading")
@@ -58,22 +53,25 @@ extension UIImageView {
             if let cachedImage = imageCache.image(for: urlRequest) {
                 self.image = cachedImage
             } else {
-                return Alamofire.request(urlRequest).responseImage { [weak self] resp in
-                    switch resp.result {
-                    case .success(let value):
-                        self?.image = value
-                        imageCache.add(value, for: urlRequest)
-                    case .failure(let error):
-                        print(error.localizedDescription)
-                        self?.image = UIImage(named: "placeholder")
-                    }
-                }
+                
+                let placeholder = UIImage(named: "loading")
+                let filter = AspectScaledToFillSizeFilter(size: frame.size)
+                af_setImage(withURL: url, placeholderImage: placeholder, filter: filter)
+                
+//                return Alamofire.request(urlRequest).responseImage { [weak self] resp in
+//                    switch resp.result {
+//                    case .success(let value):
+//                        self?.image = value
+//                        imageCache.add(value, for: urlRequest)
+//                    case .failure( _):
+//                        //print(error.localizedDescription)
+//                        self?.image = UIImage(named: "placeholder")
+//                    }
+//                }
             }
         } else {
             self.image = UIImage(named: "placeholder")
         }
-        
-        return nil
     }
     
 }

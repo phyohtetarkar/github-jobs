@@ -18,7 +18,7 @@ class GithubJobApi {
         case error(String)
     }
     
-    static func findJobPositions(description: String?, location: String?, fullTime: Bool = false, page: Int = 0, completion: @escaping (ApiResponse<[JobPositionDTO]>) -> Void) {
+    static func findJobPositions(description: String?, location: String?, fullTime: Bool = false, page: Int = 0, completion: @escaping (ApiResponse<[JobPositionDTO]>) -> Void) -> DataRequest {
         
         let url = "\(BASE_URL)/positions.json"
         
@@ -30,7 +30,7 @@ class GithubJobApi {
         
         params["page"] = page
         
-        Alamofire.request(url, parameters: params).responseString { resp in
+        return Alamofire.request(url, parameters: params).responseString { resp in
             
             switch resp.result {
             case .success(let value):
@@ -38,8 +38,8 @@ class GithubJobApi {
                     let json = value as String
                     let result = try JSONDecoder().decode([JobPositionDTO].self, from: json.data(using: .utf8)!)
                     completion(ApiResponse.success(result))
-                } catch let decodeError {
-                    print("Error decoding job positions \(decodeError)")
+                } catch {
+                    //print("Error decoding job positions \(decodeError)")
                     completion(ApiResponse.error("Error loading positions"))
                 }
             case .failure(let error):
@@ -49,11 +49,11 @@ class GithubJobApi {
         }
     }
     
-    static func getJobPosition(id: String, completion: @escaping (ApiResponse<JobPositionDTO>) -> Void) {
+    static func getJobPosition(id: String, completion: @escaping (ApiResponse<JobPositionDTO>) -> Void) -> DataRequest {
         
         let url = "\(BASE_URL)/positions/\(id).json"
         
-        Alamofire.request(url).responseString { resp in
+        return Alamofire.request(url).responseString { resp in
             
             switch resp.result {
             case .success(let value):
@@ -61,8 +61,8 @@ class GithubJobApi {
                     let json = value as String
                     let result = try JSONDecoder().decode(JobPositionDTO.self, from: json.data(using: .utf8)!)
                     completion(ApiResponse.success(result))
-                } catch let decodeError {
-                    print("Error decoding job positions \(decodeError)")
+                } catch {
+                    //print("Error decoding job positions \(decodeError)")
                     completion(ApiResponse.error("Error loading position"))
                 }
             case .failure(let error):
