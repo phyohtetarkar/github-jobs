@@ -30,31 +30,14 @@ class GithubJobApi {
         
         params["page"] = page
         
-        AF.request(url, parameters: params).responseDecodable(of: [JobPositionDTO].self) { resp in
+        return AF.request(url, parameters: params).responseDecodable(of: [JobPositionDTO].self) { resp in
+            //print(String(data: resp.data!, encoding: .utf8))
             switch resp.result {
             case .success(let value):
                 completion(ApiResponse.success(value))
             case .failure(let error):
                 completion(ApiResponse.error(error.localizedDescription))
             }
-        }
-        
-        return AF.request(url, parameters: params).responseString { resp in
-            
-            switch resp.result {
-            case .success(let value):
-                do {
-                    let json = value as String
-                    let result = try JSONDecoder().decode([JobPositionDTO].self, from: json.data(using: .utf8)!)
-                    completion(ApiResponse.success(result))
-                } catch {
-                    //print("Error decoding job positions \(decodeError)")
-                    completion(ApiResponse.error("Error loading positions"))
-                }
-            case .failure(let error):
-                completion(ApiResponse.error(error.localizedDescription))
-            }
-            
         }
     }
     

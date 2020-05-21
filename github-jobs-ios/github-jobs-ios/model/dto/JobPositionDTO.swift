@@ -40,6 +40,7 @@ struct JobPositionDTO: Decodable {
         id = try container.decode(String.self, forKey: .id)
         
         let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US")
         dateFormatter.dateFormat = "E MMM dd HH:mm:ss zzz yyyy"
         let created = try container.decode(String.self, forKey: .createdAt)
         createdAt = dateFormatter.date(from: created)

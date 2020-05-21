@@ -582,9 +582,9 @@
 			baseConfigurationReference = 5339D0EACFE30C157EF4B52B /* Pods-github-jobs-ios.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = UVVRG88W93;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -598,7 +598,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.phyohtet.DevJobs;
 				PRODUCT_NAME = "Dev Jobs Finder";
-				PROVISIONING_PROFILE_SPECIFIER = "Phyo Htet Dist";
+				PROVISIONING_PROFILE_SPECIFIER = jsoft;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -609,9 +609,9 @@
 			baseConfigurationReference = F95C34E69091BF90AD331F06 /* Pods-github-jobs-ios.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = UVVRG88W93;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -625,7 +625,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.phyohtet.DevJobs;
 				PRODUCT_NAME = "Dev Jobs Finder";
-				PROVISIONING_PROFILE_SPECIFIER = "Phyo Htet Dist";
+				PROVISIONING_PROFILE_SPECIFIER = jsoft;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
