@@ -143,14 +143,13 @@ class JobPositionsViewController: UIViewController, UITableViewDataSource, UITab
     
     @objc private func find() {
         self.loading = true
-        self.page = 0
+        self.page = 1
         dataRequest?.cancel()
-        dataRequest = GithubJobApi.findJobPositions(description: desc, location: location, fullTime: fulltime) { [weak self] resp in
+        dataRequest = GithubJobApi.findJobPositions(description: desc, location: location, fullTime: fulltime, page: page) { [weak self] resp in
             switch resp {
             case .success(let data):
                 self?.jobPositions = data
                 self?.tableView.reloadData()
-                self?.page += 1
             case .error(let error):
                 self?.showAlert(msg: error)
             }

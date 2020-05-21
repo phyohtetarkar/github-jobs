@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wRR-6Y-ZU7">
-    <device id="retina5_9" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wRR-6Y-ZU7">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -216,7 +214,7 @@
             <objects>
                 <viewController id="8ke-tt-FZE" customClass="JobPositionsFilterViewController" customModule="github_jobs_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rQ2-02-2Xb">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="702"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="jaE-xR-Ffq">
@@ -229,12 +227,11 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="By title, benefits, company, expertise" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="3EH-ji-oIt">
-                                        <rect key="frame" x="0.0" y="48.666666666666657" width="343" height="40"/>
+                                        <rect key="frame" x="0.0" y="48.666666666666671" width="343" height="40"/>
                                         <color key="backgroundColor" red="0.78142722379999996" green="0.78142722379999996" blue="0.78142722379999996" alpha="0.55115830115830111" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="c8N-fE-YZX"/>
                                         </constraints>
-                                        <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
@@ -244,12 +241,11 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="zl2-ey-cEJ"/>
                                         </constraints>
-                                        <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="qtw-Dg-L3Q">
-                                        <rect key="frame" x="0.0" y="168.66666666666669" width="343" height="31"/>
+                                        <rect key="frame" x="0.0" y="168.66666666666666" width="343" height="31"/>
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="QeX-TU-JYd">
                                                 <rect key="frame" x="0.0" y="0.0" width="51" height="31"/>
@@ -304,7 +300,7 @@
             </objects>
             <point key="canvasLocation" x="5281" y="398"/>
         </scene>
-        <!--Github Jobs-->
+        <!--Dev Jobs Finder-->
         <scene sceneID="cMB-AE-T5P">
             <objects>
                 <viewController id="vxc-Pi-EOS" customClass="JobPositionsViewController" customModule="github_jobs_ios" customModuleProvider="target" sceneMemberID="viewController">
@@ -312,44 +308,43 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iE8-Md-U6z">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iE8-Md-U6z">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="690"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CellJobPosition" rowHeight="103" id="Lwg-uc-jM1" customClass="JobPositionViewCell" customModule="github_jobs_ios" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="103"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CellJobPosition" rowHeight="100" id="Lwg-uc-jM1" customClass="JobPositionViewCell" customModule="github_jobs_ios" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Lwg-uc-jM1" id="7S5-oT-aWL">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="102.66666666666667"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="488-Nx-pkt">
-                                                    <rect key="frame" x="16" y="16" width="70.666666666666671" height="70.666666666666671"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="488-Nx-pkt">
+                                                    <rect key="frame" x="16" y="16" width="68" height="68"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="70.666666666666657" id="G2q-OK-tDB"/>
-                                                        <constraint firstAttribute="width" constant="70.670000000000002" id="ZCx-y6-MyJ"/>
+                                                        <constraint firstAttribute="width" secondItem="488-Nx-pkt" secondAttribute="height" multiplier="1:1" id="qcG-da-0Mb"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xqd-gQ-bhH">
-                                                    <rect key="frame" x="102.66666666666666" y="16" width="256.33333333333337" height="19.666666666666671"/>
+                                                    <rect key="frame" x="100" y="16" width="259" height="19.666666666666671"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 days ago" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kji-XW-JvG">
-                                                    <rect key="frame" x="102.66666666666666" y="35.666666666666664" width="256.33333333333337" height="14"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
-                                                    <nil key="textColor"/>
+                                                    <rect key="frame" x="100" y="35.666666666666664" width="259" height="14"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Microsoft" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c8p-Jk-6K0">
-                                                    <rect key="frame" x="102.66666666666669" y="67.666666666666671" width="172" height="19"/>
+                                                    <rect key="frame" x="99.999999999999986" y="65" width="174.66666666666663" height="19"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Full Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lZx-8Q-s1V">
-                                                    <rect key="frame" x="290.66666666666669" y="67.666666666666671" width="68.333333333333314" height="19"/>
+                                                    <rect key="frame" x="290.66666666666669" y="65" width="68.333333333333314" height="19"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.59999999999999998" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -429,7 +424,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7CQ-sr-VFI"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Github Jobs" id="N67-GT-U0j">
+                    <navigationItem key="navigationItem" title="Dev Jobs Finder" id="N67-GT-U0j">
                         <barButtonItem key="rightBarButtonItem" title="Filter" style="done" id="97O-BV-skb">
                             <connections>
                                 <segue destination="1Oz-aF-8m1" kind="presentation" identifier="filter" id="7aW-Sz-KUj"/>
@@ -455,7 +450,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1Oz-aF-8m1" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" translucent="NO" id="KQq-gd-dIn">
-                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" red="0.12941176469999999" green="0.58431372550000005" blue="0.95294117649999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -472,10 +467,10 @@
             </objects>
             <point key="canvasLocation" x="3642" y="539"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Default Navigation Controller-->
         <scene sceneID="OHd-cG-kLM">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wRR-6Y-ZU7" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wRR-6Y-ZU7" customClass="DefaultNavigationController" customModule="github_jobs_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" translucent="NO" id="3gq-cO-ztn">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>

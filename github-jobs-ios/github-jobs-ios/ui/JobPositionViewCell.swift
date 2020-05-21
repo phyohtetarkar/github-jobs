@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 import AlamofireImage
 
 let imageCache = AutoPurgingImageCache(
@@ -46,28 +47,28 @@ extension UIImageView {
     
     func load(imageUrl: String?) {
         if let urlStr = imageUrl, let url = URL(string: urlStr) {
-            let urlRequest = URLRequest(url: url)
-            self.image = UIImage(named: "loading")
+            let placeholder = UIImage(named: "loading")
+            let filter = AspectScaledToFitSizeFilter(size: frame.size)
+            af.setImage(withURL: url, placeholderImage: placeholder, filter: filter)
             
-            if let cachedImage = imageCache.image(for: urlRequest) {
-                self.image = cachedImage
-            } else {
-                
-                let placeholder = UIImage(named: "loading")
-                let filter = AspectScaledToFillSizeFilter(size: frame.size)
-                af_setImage(withURL: url, placeholderImage: placeholder, filter: filter)
-                
-//                return Alamofire.request(urlRequest).responseImage { [weak self] resp in
+//            let urlRequest = URLRequest(url: url)
+//            self.image = UIImage(named: "loading")
+//
+//            if let cachedImage = imageCache.image(for: urlRequest) {
+//                self.image = cachedImage
+//            } else {
+//
+//
+//                AF.request(urlRequest).responseImage { [weak self] resp in
 //                    switch resp.result {
 //                    case .success(let value):
 //                        self?.image = value
 //                        imageCache.add(value, for: urlRequest)
 //                    case .failure( _):
-//                        //print(error.localizedDescription)
 //                        self?.image = UIImage(named: "placeholder")
 //                    }
 //                }
-            }
+//            }
         } else {
             self.image = UIImage(named: "placeholder")
         }

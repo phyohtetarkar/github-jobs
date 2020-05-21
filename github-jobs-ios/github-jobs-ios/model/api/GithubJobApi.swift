@@ -18,7 +18,7 @@ class GithubJobApi {
         case error(String)
     }
     
-    static func findJobPositions(description: String?, location: String?, fullTime: Bool = false, page: Int = 0, completion: @escaping (ApiResponse<[JobPositionDTO]>) -> Void) -> DataRequest {
+    static func findJobPositions(description: String?, location: String?, fullTime: Bool = false, page: Int = 1, completion: @escaping (ApiResponse<[JobPositionDTO]>) -> Void) -> DataRequest {
         
         let url = "\(BASE_URL)/positions.json"
         
@@ -30,7 +30,16 @@ class GithubJobApi {
         
         params["page"] = page
         
-        return Alamofire.request(url, parameters: params).responseString { resp in
+        AF.request(url, parameters: params).responseDecodable(of: [JobPositionDTO].self) { resp in
+            switch resp.result {
+            case .success(let value):
+                completion(ApiResponse.success(value))
+            case .failure(let error):
+                completion(ApiResponse.error(error.localizedDescription))
+            }
+        }
+        
+        return AF.request(url, parameters: params).responseString { resp in
             
             switch resp.result {
             case .success(let value):
@@ -53,20 +62,11 @@ class GithubJobApi {
         
         let url = "\(BASE_URL)/positions/\(id).json"
         
-        return Alamofire.request(url).responseString { resp in
-            
+        return AF.request(url).responseDecodable(of: JobPositionDTO.self) { resp in
             switch resp.result {
             case .success(let value):
-                do {
-                    let json = value as String
-                    let result = try JSONDecoder().decode(JobPositionDTO.self, from: json.data(using: .utf8)!)
-                    completion(ApiResponse.success(result))
-                } catch {
-                    //print("Error decoding job positions \(decodeError)")
-                    completion(ApiResponse.error("Error loading position"))
-                }
+                completion(ApiResponse.success(value))
             case .failure(let error):
-                
                 completion(ApiResponse.error(error.localizedDescription))
             }
             
@@ -75,7 +75,7 @@ class GithubJobApi {
     }
     
     static func cancelAllRequests() {
-        Alamofire.SessionManager.default.session.getTasksWithCompletionHandler {(sessionData, uploadData, downloadData) in
+        AF.session.getTasksWithCompletionHandler {(sessionData, uploadData, downloadData) in
             sessionData.forEach { $0.cancel() }
             uploadData.forEach { $0.cancel() }
             downloadData.forEach { $0.cancel() }

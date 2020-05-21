@@ -3,13 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0CF4EC8E616E39378BD09FC5 /* Pods_github_jobs_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ED968CD0D7055F59A6668A3 /* Pods_github_jobs_ios.framework */; };
 		5C5DC9A8210DEFA000F426BB /* GithubJobApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5DC9A7210DEFA000F426BB /* GithubJobApi.swift */; };
-		5C5DC9AC210DF2ED00F426BB /* AlamofireImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C5DC9AA210DF2ED00F426BB /* AlamofireImage.framework */; };
-		5C5DC9AD210DF2ED00F426BB /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C5DC9AB210DF2ED00F426BB /* Alamofire.framework */; };
+		5C67E1AC247653C10047F4D0 /* DefaultNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C67E1AB247653C10047F4D0 /* DefaultNavigationController.swift */; };
 		5C9F99D4210D767A00D46EE8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9F99D3210D767A00D46EE8 /* AppDelegate.swift */; };
 		5C9F99D9210D767A00D46EE8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C9F99D7210D767A00D46EE8 /* Main.storyboard */; };
 		5C9F99DB210D767A00D46EE8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C9F99DA210D767A00D46EE8 /* Assets.xcassets */; };
@@ -17,6 +17,7 @@
 		5C9F99E9210D767B00D46EE8 /* GithubJobsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9F99E8210D767B00D46EE8 /* GithubJobsTests.swift */; };
 		5C9F99F4210D767B00D46EE8 /* GithubJobsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9F99F3210D767B00D46EE8 /* GithubJobsUITests.swift */; };
 		5C9F9A06210D7B0E00D46EE8 /* JobPositionDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9F9A05210D7B0E00D46EE8 /* JobPositionDTO.swift */; };
+		5CA82163247674F300BC3B6C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA82162247674F300BC3B6C /* SceneDelegate.swift */; };
 		5CED484422F2A0E800EC2FF6 /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CED484322F2A0E800EC2FF6 /* RoundedView.swift */; };
 		AA0F7A93210FF51C00A88E21 /* UICardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0F7A92210FF51C00A88E21 /* UICardView.swift */; };
 		AA0F7A9521100F2F00A88E21 /* JobPositionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0F7A9421100F2F00A88E21 /* JobPositionDetailViewController.swift */; };
@@ -43,10 +44,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3ED968CD0D7055F59A6668A3 /* Pods_github_jobs_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_github_jobs_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5339D0EACFE30C157EF4B52B /* Pods-github-jobs-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-github-jobs-ios.debug.xcconfig"; path = "Target Support Files/Pods-github-jobs-ios/Pods-github-jobs-ios.debug.xcconfig"; sourceTree = "<group>"; };
 		5C5DC9A7210DEFA000F426BB /* GithubJobApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubJobApi.swift; sourceTree = "<group>"; };
 		5C5DC9AA210DF2ED00F426BB /* AlamofireImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlamofireImage.framework; path = Carthage/Build/iOS/AlamofireImage.framework; sourceTree = "<group>"; };
 		5C5DC9AB210DF2ED00F426BB /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
-		5C9F99D0210D767A00D46EE8 /* github-jobs-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "github-jobs-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C67E1AB247653C10047F4D0 /* DefaultNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNavigationController.swift; sourceTree = "<group>"; };
+		5C9F99D0210D767A00D46EE8 /* Dev Jobs Finder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dev Jobs Finder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C9F99D3210D767A00D46EE8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5C9F99D8210D767A00D46EE8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5C9F99DA210D767A00D46EE8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -59,12 +63,14 @@
 		5C9F99F3210D767B00D46EE8 /* GithubJobsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubJobsUITests.swift; sourceTree = "<group>"; };
 		5C9F99F5210D767B00D46EE8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C9F9A05210D7B0E00D46EE8 /* JobPositionDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobPositionDTO.swift; sourceTree = "<group>"; };
+		5CA82162247674F300BC3B6C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		5CED484322F2A0E800EC2FF6 /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
 		AA0F7A92210FF51C00A88E21 /* UICardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICardView.swift; sourceTree = "<group>"; };
 		AA0F7A9421100F2F00A88E21 /* JobPositionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobPositionDetailViewController.swift; sourceTree = "<group>"; };
 		AA5B972F210EA86F00087388 /* JobPositionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobPositionsViewController.swift; sourceTree = "<group>"; };
 		AA5B9731210EADC500087388 /* JobPositionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobPositionViewCell.swift; sourceTree = "<group>"; };
 		AAE20907211148F00075754F /* JobPositionsFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobPositionsFilterViewController.swift; sourceTree = "<group>"; };
+		F95C34E69091BF90AD331F06 /* Pods-github-jobs-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-github-jobs-ios.release.xcconfig"; path = "Target Support Files/Pods-github-jobs-ios/Pods-github-jobs-ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,8 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5C5DC9AC210DF2ED00F426BB /* AlamofireImage.framework in Frameworks */,
-				5C5DC9AD210DF2ED00F426BB /* Alamofire.framework in Frameworks */,
+				0CF4EC8E616E39378BD09FC5 /* Pods_github_jobs_ios.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,6 +116,7 @@
 			children = (
 				5C5DC9AB210DF2ED00F426BB /* Alamofire.framework */,
 				5C5DC9AA210DF2ED00F426BB /* AlamofireImage.framework */,
+				3ED968CD0D7055F59A6668A3 /* Pods_github_jobs_ios.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -123,13 +129,14 @@
 				5C9F99F2210D767B00D46EE8 /* github-jobs-iosUITests */,
 				5C9F99D1210D767A00D46EE8 /* Products */,
 				5C5DC9A9210DF2ED00F426BB /* Frameworks */,
+				6D2BFF970396C32F69F328D9 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
 		5C9F99D1210D767A00D46EE8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5C9F99D0210D767A00D46EE8 /* github-jobs-ios.app */,
+				5C9F99D0210D767A00D46EE8 /* Dev Jobs Finder.app */,
 				5C9F99E4210D767B00D46EE8 /* github-jobs-iosTests.xctest */,
 				5C9F99EF210D767B00D46EE8 /* github-jobs-iosUITests.xctest */,
 			);
@@ -142,6 +149,8 @@
 				5C9F9A01210D7ACA00D46EE8 /* model */,
 				5C16FE07210F49F2006BEDD3 /* ui */,
 				5C9F99D3210D767A00D46EE8 /* AppDelegate.swift */,
+				5CA82162247674F300BC3B6C /* SceneDelegate.swift */,
+				5C67E1AB247653C10047F4D0 /* DefaultNavigationController.swift */,
 				5C9F99D7210D767A00D46EE8 /* Main.storyboard */,
 				5C9F99DA210D767A00D46EE8 /* Assets.xcassets */,
 				5C9F99DC210D767A00D46EE8 /* LaunchScreen.storyboard */,
@@ -193,6 +202,15 @@
 			path = dto;
 			sourceTree = "<group>";
 		};
+		6D2BFF970396C32F69F328D9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5339D0EACFE30C157EF4B52B /* Pods-github-jobs-ios.debug.xcconfig */,
+				F95C34E69091BF90AD331F06 /* Pods-github-jobs-ios.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		AA0F7A91210FF4F200A88E21 /* custom */ = {
 			isa = PBXGroup;
 			children = (
@@ -209,10 +227,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5C9F99F8210D767B00D46EE8 /* Build configuration list for PBXNativeTarget "github-jobs-ios" */;
 			buildPhases = (
+				FD6D0A2A6BB91F5632D197DC /* [CP] Check Pods Manifest.lock */,
 				5C9F99CC210D767A00D46EE8 /* Sources */,
 				5C9F99CD210D767A00D46EE8 /* Frameworks */,
 				5C9F99CE210D767A00D46EE8 /* Resources */,
-				5C5DC9AE210DF31700F426BB /* ShellScript */,
+				684F61E8C805B01BD59559AA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -220,7 +239,7 @@
 			);
 			name = "github-jobs-ios";
 			productName = "github-jobs-ios";
-			productReference = 5C9F99D0210D767A00D46EE8 /* github-jobs-ios.app */;
+			productReference = 5C9F99D0210D767A00D46EE8 /* Dev Jobs Finder.app */;
 			productType = "com.apple.product-type.application";
 		};
 		5C9F99E3210D767B00D46EE8 /* github-jobs-iosTests */ = {
@@ -333,20 +352,44 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		5C5DC9AE210DF31700F426BB /* ShellScript */ = {
+		684F61E8C805B01BD59559AA /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/AlamofireImage.framework",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-github-jobs-ios/Pods-github-jobs-ios-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			outputPaths = (
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-github-jobs-ios/Pods-github-jobs-ios-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-github-jobs-ios/Pods-github-jobs-ios-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FD6D0A2A6BB91F5632D197DC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-github-jobs-ios-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -356,11 +399,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA0F7A93210FF51C00A88E21 /* UICardView.swift in Sources */,
+				5C67E1AC247653C10047F4D0 /* DefaultNavigationController.swift in Sources */,
 				AAE20908211148F00075754F /* JobPositionsFilterViewController.swift in Sources */,
 				5C5DC9A8210DEFA000F426BB /* GithubJobApi.swift in Sources */,
 				5C9F9A06210D7B0E00D46EE8 /* JobPositionDTO.swift in Sources */,
 				AA5B9732210EADC500087388 /* JobPositionViewCell.swift in Sources */,
 				AA5B9730210EA86F00087388 /* JobPositionsViewController.swift in Sources */,
+				5CA82163247674F300BC3B6C /* SceneDelegate.swift in Sources */,
 				5CED484422F2A0E800EC2FF6 /* RoundedView.swift in Sources */,
 				AA0F7A9521100F2F00A88E21 /* JobPositionDetailViewController.swift in Sources */,
 				5C9F99D4210D767A00D46EE8 /* AppDelegate.swift in Sources */,
@@ -534,10 +579,12 @@
 		};
 		5C9F99F9210D767B00D46EE8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5339D0EACFE30C157EF4B52B /* Pods-github-jobs-ios.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = UVVRG88W93;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -549,9 +596,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.phyohtet.github-job";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Phyo Htet Dev";
+				PRODUCT_BUNDLE_IDENTIFIER = com.phyohtet.DevJobs;
+				PRODUCT_NAME = "Dev Jobs Finder";
+				PROVISIONING_PROFILE_SPECIFIER = "Phyo Htet Dist";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -559,10 +606,12 @@
 		};
 		5C9F99FA210D767B00D46EE8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F95C34E69091BF90AD331F06 /* Pods-github-jobs-ios.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = UVVRG88W93;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -574,8 +623,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.phyohtet.github-job";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.phyohtet.DevJobs;
+				PRODUCT_NAME = "Dev Jobs Finder";
 				PROVISIONING_PROFILE_SPECIFIER = "Phyo Htet Dist";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
