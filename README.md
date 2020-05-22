@@ -2,8 +2,6 @@
 
 Github jobs search mobile application using github api.
 
-Play Store: https://play.google.com/store/apps/details?id=com.phyohtet.githubjobs
-
 # Screenshots
 
 <p float="left">
